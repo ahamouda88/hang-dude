@@ -7,7 +7,7 @@ package challenges.hangdude.model;
  */
 public enum Category {
 
-	SPROT,
+	SPORT,
 	ANIMAL,
 	CITY,
 	COUNTRY,
