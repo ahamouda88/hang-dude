@@ -1,4 +1,4 @@
-package challenges.hangdude.model;
+package com.hangdude.model;
 
 import java.util.HashSet;
 import java.util.Set;

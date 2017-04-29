@@ -1,4 +1,4 @@
-package challenges.hangdude.model;
+package com.hangdude.model;
 
 /**
  * A POJO class that represents a game word

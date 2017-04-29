@@ -1,4 +1,4 @@
-package challenges.hangdude.model;
+package com.hangdude.model;
 
 /**
  * An enum that represents the category of the game
@@ -9,7 +9,7 @@ public enum Category {
 
 	SPORT,
 	ANIMAL,
-	CITY,
 	COUNTRY,
+	CITY,
 	FOOD
 }

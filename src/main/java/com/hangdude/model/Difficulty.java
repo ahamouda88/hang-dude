@@ -1,4 +1,4 @@
-package challenges.hangdude.model;
+package com.hangdude.model;
 
 /**
  * An enum that represents the difficulty of the game
