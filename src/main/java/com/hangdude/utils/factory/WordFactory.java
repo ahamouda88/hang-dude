@@ -1,4 +1,4 @@
-package com.hangdude.utils;
+package com.hangdude.utils.factory;
 
 import java.util.HashMap;
 import java.util.HashSet;
@@ -19,9 +19,9 @@ import com.hangdude.model.GameWord;
  * @author ahamouda
  *
  */
-public final class WordFactoryUtils {
+public final class WordFactory {
 
-	private static final Logger LOGGER = LoggerFactory.getLogger(WordFactoryUtils.class);
+	private static final Logger LOGGER = LoggerFactory.getLogger(WordFactory.class);
 
 	/** Main variable that acts as a storage for words with different categories and difficulties **/
 	private static final Map<Category, Map<Difficulty, Set<GameWord>>> WORDS;
@@ -77,6 +77,10 @@ public final class WordFactoryUtils {
 
 	}
 
+	/** Private constructor **/
+	private WordFactory() {
+	}
+
 	/**
 	 * A method that returns a word that matches the given parameters
 	 * 
@@ -104,7 +108,8 @@ public final class WordFactoryUtils {
 	 */
 	public static GameWord getWord(Category category, Difficulty difficulty, Set<GameWord> excludedWords) {
 		if (category == null || difficulty == null) {
-			LOGGER.error("Category and Difficulty shouldnot be null!");
+			LOGGER.error("Failed to find word due to invalid parameters. Category: {} and Difficulty: {}.", category,
+					difficulty);
 			return null;
 		}
 
@@ -131,6 +136,27 @@ public final class WordFactoryUtils {
 
 		// Return the next word if exists!
 		return difficultyWords.iterator().hasNext() ? difficultyWords.iterator().next() : null;
+	}
+
+	/**
+	 * A method that creates a {@link GameWord} object that matches the given criteria
+	 * 
+	 * @param word
+	 *            a string that represents the word
+	 * @param category
+	 *            the {@link Category} of the problem
+	 * @param difficulty
+	 *            the {@link Difficulty} of the problem
+	 * @return a {@link GameWord} that matches the given parameters, or <b>null</b> if word type doesn't exist
+	 */
+	public static GameWord createWord(String word, Category category, Difficulty difficulty) {
+		if (word == null || category == null || difficulty == null) {
+			LOGGER.error("Failed to create word due to invalid parameters. Word: {}, Category: {} and Difficulty: {}.",
+					word, category, difficulty);
+			return null;
+		}
+
+		return GameWord.builder().category(category).difficulty(difficulty).word(word).build();
 	}
 
 }

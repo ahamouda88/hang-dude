@@ -1,37 +1,38 @@
 package com.hangdude.model;
 
+import java.io.Serializable;
+import java.util.HashSet;
+import java.util.Set;
+
 /**
  * A POJO class that represents a User
  * 
  * @author ahamouda
  */
-public class Dude {
-	private String firstName;
-	private String lastName;
-	private String email;
-	private String phone;
+public class Dude implements Serializable {
+
+	private static final long serialVersionUID = 1L;
+
+	private String id;
+	private String username;
+	private Set<GameWord> completedWords;
 
 	private Dude(Builder builder) {
-		this.firstName = builder.firstName;
-		this.lastName = builder.lastName;
-		this.email = builder.email;
-		this.phone = builder.phone;
+		this.id = builder.id;
+		this.username = builder.username;
+		this.completedWords = builder.completedWords == null ? new HashSet<>() : builder.completedWords;
 	}
 
-	public String getFirstName() {
-		return firstName;
+	public String getId() {
+		return id;
 	}
 
-	public String getLastName() {
-		return lastName;
+	public String getUsername() {
+		return username;
 	}
 
-	public String getEmail() {
-		return email;
-	}
-
-	public String getPhone() {
-		return phone;
+	public Set<GameWord> getCompletedWords() {
+		return completedWords;
 	}
 
 	public static Builder builder() {
@@ -39,28 +40,22 @@ public class Dude {
 	}
 
 	public static class Builder {
-		private String firstName;
-		private String lastName;
-		private String email;
-		private String phone;
+		private String id;
+		private String username;
+		private Set<GameWord> completedWords;
 
-		public Builder firstName(String firstName) {
-			this.firstName = firstName;
+		public Builder id(String id) {
+			this.id = id;
 			return this;
 		}
 
-		public Builder lastName(String lastName) {
-			this.firstName = lastName;
+		public Builder username(String username) {
+			this.username = username;
 			return this;
 		}
 
-		public Builder email(String email) {
-			this.email = email;
-			return this;
-		}
-
-		public Builder phone(String phone) {
-			this.phone = phone;
+		public Builder completedWords(Set<GameWord> completedWords) {
+			this.completedWords = completedWords;
 			return this;
 		}
 
@@ -73,10 +68,9 @@ public class Dude {
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + ((email == null) ? 0 : email.hashCode());
-		result = prime * result + ((firstName == null) ? 0 : firstName.hashCode());
-		result = prime * result + ((lastName == null) ? 0 : lastName.hashCode());
-		result = prime * result + ((phone == null) ? 0 : phone.hashCode());
+		result = prime * result + ((completedWords == null) ? 0 : completedWords.hashCode());
+		result = prime * result + ((id == null) ? 0 : id.hashCode());
+		result = prime * result + ((username == null) ? 0 : username.hashCode());
 		return result;
 	}
 
@@ -86,18 +80,15 @@ public class Dude {
 		if (obj == null) return false;
 		if (getClass() != obj.getClass()) return false;
 		Dude other = (Dude) obj;
-		if (email == null) {
-			if (other.email != null) return false;
-		} else if (!email.equals(other.email)) return false;
-		if (firstName == null) {
-			if (other.firstName != null) return false;
-		} else if (!firstName.equals(other.firstName)) return false;
-		if (lastName == null) {
-			if (other.lastName != null) return false;
-		} else if (!lastName.equals(other.lastName)) return false;
-		if (phone == null) {
-			if (other.phone != null) return false;
-		} else if (!phone.equals(other.phone)) return false;
+		if (completedWords == null) {
+			if (other.completedWords != null) return false;
+		} else if (!completedWords.equals(other.completedWords)) return false;
+		if (id == null) {
+			if (other.id != null) return false;
+		} else if (!id.equals(other.id)) return false;
+		if (username == null) {
+			if (other.username != null) return false;
+		} else if (!username.equals(other.username)) return false;
 		return true;
 	}
 

@@ -1,11 +1,15 @@
 package com.hangdude.model;
 
+import java.io.Serializable;
+
 /**
  * A POJO class that represents a game word
  * 
  * @author ahamouda
  */
-public class GameWord {
+public class GameWord implements Serializable {
+
+	private static final long serialVersionUID = 1L;
 
 	private String word;
 	private Difficulty difficulty;
