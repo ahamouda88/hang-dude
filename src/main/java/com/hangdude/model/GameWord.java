@@ -1,6 +1,14 @@
 package com.hangdude.model;
 
+import static org.apache.commons.lang.StringUtils.isEmpty;
+
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import com.google.common.collect.ImmutableMap;
 
 /**
  * A POJO class that represents a game word
@@ -14,11 +22,13 @@ public class GameWord implements Serializable {
 	private String word;
 	private Difficulty difficulty;
 	private Category category;
+	private Map<Character, List<Integer>> charPositions;
 
 	private GameWord(Builder builder) {
 		this.word = builder.word;
 		this.difficulty = builder.difficulty;
 		this.category = builder.category;
+		this.charPositions = allocateCharacters();
 	}
 
 	public String getWord() {
@@ -33,8 +43,28 @@ public class GameWord implements Serializable {
 		return category;
 	}
 
+	public Map<Character, List<Integer>> getCharPositions() {
+		return charPositions;
+	}
+
 	public static Builder builder() {
 		return new Builder();
+	}
+
+	private Map<Character, List<Integer>> allocateCharacters() {
+		Map<Character, List<Integer>> chars = new HashMap<>();
+		if (isEmpty(word)) return chars;
+
+		for (int i = 0; i < word.length(); i++) {
+			char c = word.charAt(i);
+			List<Integer> list = chars.get(c);
+
+			if (list == null) list = new ArrayList<>();
+
+			list.add(i);
+			chars.put(c, list);
+		}
+		return ImmutableMap.copyOf(chars);
 	}
 
 	public static class Builder {

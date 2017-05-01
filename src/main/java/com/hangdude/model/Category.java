@@ -7,9 +7,19 @@ package com.hangdude.model;
  */
 public enum Category {
 
-	SPORT,
-	ANIMAL,
-	COUNTRY,
-	CITY,
-	FOOD
+	SPORT("Sport"),
+	ANIMAL("Animal"),
+	COUNTRY("Country"),
+	CITY("City"),
+	FOOD("Food");
+
+	private final String title;
+
+	private Category(String title) {
+		this.title = title;
+	}
+
+	public String title() {
+		return title;
+	}
 }

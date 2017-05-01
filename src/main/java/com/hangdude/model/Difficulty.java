@@ -7,7 +7,17 @@ package com.hangdude.model;
  */
 public enum Difficulty {
 
-	EASY,
-	MEDIUM,
-	HARD
+	EASY("Easy"),
+	MEDIUM("Medium"),
+	HARD("Hard");
+
+	private final String title;
+
+	private Difficulty(String title) {
+		this.title = title;
+	}
+
+	public String title() {
+		return title;
+	}
 }
