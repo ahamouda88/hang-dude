@@ -24,8 +24,8 @@ public class HangdudeBoardServiceTest {
 	private BoardService<HangdudeBoard, String> boardService = BoardServiceFactory.getInstance();
 
 	@Before
-	public void testCreateBoard() {
-		boardService.removeAllBoards();
+	public void testAddBoard() {
+		boardService.removeAll();
 
 		createAndTestBoard("1", Category.COUNTRY, Difficulty.EASY);
 
@@ -37,9 +37,9 @@ public class HangdudeBoardServiceTest {
 	}
 
 	@Test
-	public void testInvalidCreate() {
-		HangdudeBoard board = boardService.createBoard("6", null, null);
-		assertNull(board);
+	public void testInvalidAdd() {
+		boolean check = boardService.addElement("6", null);
+		assertFalse(check);
 	}
 
 	@Test
@@ -51,30 +51,31 @@ public class HangdudeBoardServiceTest {
 	public void testExistingBoard() {
 		Dude dude = Dude.builder().id("invalidDude").build();
 		GameWord gameWord = WordFactory.getWord(Category.COUNTRY, Difficulty.EASY);
+		HangdudeBoard board = new HangdudeBoard(dude, gameWord);
 
-		HangdudeBoard board = boardService.createBoard("1", dude, gameWord);
-		assertNull(board);
+		boolean check = boardService.addElement("1", board);
+		assertFalse(check);
 	}
 
 	@Test
 	public void testRemoveBoard() {
-		boardService.removeBoard("2");
+		boardService.removeElement("2");
 		testAllBoards(3);
 	}
 
 	@Test
 	public void testInvalidRemove() {
-		HangdudeBoard board1 = boardService.removeBoard(null);
+		HangdudeBoard board1 = boardService.removeElement(null);
 		assertNull(board1);
 
-		HangdudeBoard board2 = boardService.removeBoard("99");
+		HangdudeBoard board2 = boardService.removeElement("99");
 		assertNull(board2);
 	}
 
 	@Test
 	public void testGetBoard() {
 		String id = "3";
-		HangdudeBoard board = boardService.getBoard(id);
+		HangdudeBoard board = boardService.getElement(id);
 
 		assertEquals("user_" + id, board.getDude().getId());
 		assertEquals(Category.FOOD, board.getCurrentWord().getCategory());
@@ -83,33 +84,35 @@ public class HangdudeBoardServiceTest {
 
 	@Test
 	public void testInvalidGet() {
-		HangdudeBoard board1 = boardService.getBoard(null);
+		HangdudeBoard board1 = boardService.getElement(null);
 		assertNull(board1);
 
-		HangdudeBoard board2 = boardService.getBoard("999999");
+		HangdudeBoard board2 = boardService.getElement("999999");
 		assertNull(board2);
 	}
 
 	@Test
 	public void testUpdateBoard() {
 		String id = "4";
-		HangdudeBoard board = boardService.getBoard(id);
+		HangdudeBoard board = boardService.getElement(id);
 		board.setNumOfAttempts(2);
 
-		assertTrue(boardService.updateBoard(id, board));
+		assertTrue(boardService.updateElement(id, board));
 	}
 
 	@Test
 	public void testInvalidUpdate() {
-		assertFalse(boardService.updateBoard(null, null));
+		assertFalse(boardService.updateElement(null, null));
 	}
 
 	private void createAndTestBoard(String id, Category category, Difficulty difficulty) {
 		Dude dude = Dude.builder().id("user_" + id).build();
 		GameWord gameWord = WordFactory.getWord(category, difficulty);
+		HangdudeBoard board = new HangdudeBoard(dude, gameWord);
 
-		HangdudeBoard board = boardService.createBoard(id, dude, gameWord);
+		boolean check = boardService.addElement(id, board);
 
+		assertTrue(check);
 		assertEquals(dude, board.getDude());
 		assertEquals(gameWord, board.getCurrentWord());
 		assertEquals(StringUtils.EMPTY, board.getWordState());
@@ -117,7 +120,7 @@ public class HangdudeBoardServiceTest {
 	}
 
 	private void testAllBoards(int expectedSize) {
-		List<HangdudeBoard> allBoards = boardService.getAllBoards();
+		List<HangdudeBoard> allBoards = boardService.getAll();
 		assertEquals(expectedSize, allBoards.size());
 	}
 }

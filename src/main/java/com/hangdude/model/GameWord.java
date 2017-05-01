@@ -22,6 +22,7 @@ public class GameWord implements Serializable {
 	private String word;
 	private Difficulty difficulty;
 	private Category category;
+	/** A map to manage the positions of each character in the word **/
 	private Map<Character, List<Integer>> charPositions;
 
 	private GameWord(Builder builder) {
@@ -51,6 +52,7 @@ public class GameWord implements Serializable {
 		return new Builder();
 	}
 
+	/** Form the map of characters, and their positions **/
 	private Map<Character, List<Integer>> allocateCharacters() {
 		Map<Character, List<Integer>> chars = new HashMap<>();
 		if (isEmpty(word)) return chars;
@@ -97,6 +99,7 @@ public class GameWord implements Serializable {
 		final int prime = 31;
 		int result = 1;
 		result = prime * result + ((category == null) ? 0 : category.hashCode());
+		result = prime * result + ((charPositions == null) ? 0 : charPositions.hashCode());
 		result = prime * result + ((difficulty == null) ? 0 : difficulty.hashCode());
 		result = prime * result + ((word == null) ? 0 : word.hashCode());
 		return result;
@@ -109,6 +112,9 @@ public class GameWord implements Serializable {
 		if (getClass() != obj.getClass()) return false;
 		GameWord other = (GameWord) obj;
 		if (category != other.category) return false;
+		if (charPositions == null) {
+			if (other.charPositions != null) return false;
+		} else if (!charPositions.equals(other.charPositions)) return false;
 		if (difficulty != other.difficulty) return false;
 		if (word == null) {
 			if (other.word != null) return false;

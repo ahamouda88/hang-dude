@@ -1,8 +1,8 @@
 package com.hangdude.model.board;
 
 import java.io.Serializable;
+import java.util.Arrays;
 
-import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -18,7 +18,10 @@ import com.hangdude.model.GameWord;
 public class HangdudeBoard implements Serializable {
 
 	private static final long serialVersionUID = 1L;
+
 	private static final Logger LOGGER = LoggerFactory.getLogger(HangdudeBoard.class);
+
+	public static final char EMPTY_CHARACTER = '_';
 
 	private Dude dude;
 	private GameWord currentWord;
@@ -35,7 +38,7 @@ public class HangdudeBoard implements Serializable {
 		} else {
 			this.dude = dude;
 			this.currentWord = currentWord;
-			this.wordState = StringUtils.EMPTY;
+			this.wordState = fillEmptyCharacters();
 		}
 	}
 
@@ -71,4 +74,10 @@ public class HangdudeBoard implements Serializable {
 		this.wordState = wordState;
 	}
 
+	private String fillEmptyCharacters() {
+		char[] chars = new char[currentWord.getWord().length()];
+		Arrays.fill(chars, EMPTY_CHARACTER);
+
+		return new String(chars);
+	}
 }

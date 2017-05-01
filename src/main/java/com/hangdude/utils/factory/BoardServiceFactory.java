@@ -1,6 +1,7 @@
 package com.hangdude.utils.factory;
 
 import com.hangdude.service.BoardService;
+import com.hangdude.service.impl.GameWordService;
 import com.hangdude.service.impl.HangdudeBoardService;
 
 /**
@@ -14,7 +15,7 @@ public final class BoardServiceFactory implements Cloneable {
 	private static final HangdudeBoardService BOARD_SERVICE;
 
 	static {
-		BOARD_SERVICE = new HangdudeBoardService();
+		BOARD_SERVICE = new HangdudeBoardService(new GameWordService());
 	}
 
 	private BoardServiceFactory() {
