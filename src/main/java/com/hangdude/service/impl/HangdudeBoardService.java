@@ -2,9 +2,9 @@ package com.hangdude.service.impl;
 
 import static org.apache.commons.lang.StringUtils.isEmpty;
 
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -26,7 +26,7 @@ public class HangdudeBoardService implements BoardService<HangdudeBoard, String>
 	private static final Logger LOGGER = LoggerFactory.getLogger(HangdudeBoardService.class);
 
 	/** A variable that keeps track of currently being played boards **/
-	private Map<String, HangdudeBoard> boards = new HashMap<>();
+	private Map<String, HangdudeBoard> boards = new ConcurrentHashMap<>();
 
 	/**
 	 * @see BoardService#getAllBoards()
