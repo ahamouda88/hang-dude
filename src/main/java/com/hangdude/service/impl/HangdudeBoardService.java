@@ -42,7 +42,7 @@ public class HangdudeBoardService implements BoardService<HangdudeBoard, String>
 	@Override
 	public HangdudeBoard getBoard(String key) {
 		if (isEmpty(key)) {
-			LOGGER.error("Failed to return the game board, due to invalid parameter. Key: {}.", key);
+			LOGGER.error("Failed to return a game board, due to invalid parameter. Key: {}.", key);
 			return null;
 		}
 
@@ -55,8 +55,9 @@ public class HangdudeBoardService implements BoardService<HangdudeBoard, String>
 	@Override
 	public HangdudeBoard createBoard(String key, Dude dude, GameWord gameWord) {
 		if (dude == null || gameWord == null) {
-			LOGGER.error("Failed to create a game board, due to invalid parameters. Dude: {}, and GameWord: {}.", dude,
-					gameWord);
+			LOGGER.error(
+					"Failed to create a game board, due to invalid parameters. Key: {}, Dude: {}, and GameWord: {}.",
+					key, dude, gameWord);
 			return null;
 		}
 
@@ -101,11 +102,19 @@ public class HangdudeBoardService implements BoardService<HangdudeBoard, String>
 		}
 
 		if (!boards.containsKey(key)) {
-			LOGGER.error("Failed to remve a game board. Board with the given key '{}', doesn't exist.", key);
+			LOGGER.error("Failed to remove a game board. Board with the given key '{}', doesn't exist.", key);
 			return null;
 		}
 
 		return boards.remove(key);
+	}
+
+	/**
+	 * @see BoardService#removeAllBoards()
+	 */
+	@Override
+	public void removeAllBoards() {
+		boards.clear();
 	}
 
 }

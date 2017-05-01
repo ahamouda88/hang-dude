@@ -64,4 +64,9 @@ public interface BoardService<T, E> {
 	 */
 	public T removeBoard(E key);
 
+	/**
+	 * A method to remove all existing boards
+	 */
+	public void removeAllBoards();
+
 }
