@@ -19,7 +19,8 @@ public interface BoardService<T, E> extends MainService<T, E> {
 	 *            the character that need to be added
 	 * @param key
 	 *            the key of the game board
-	 * @return an updated board based on the addition of the new character
+	 * @return an updated board based on the addition of the new character, or <b>null</b> if character wasn't added
+	 *         successfully
 	 */
 	public T addCharacter(Character character, E key);
 }

@@ -5,9 +5,9 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 
+import java.util.Arrays;
 import java.util.List;
 
-import org.apache.commons.lang.StringUtils;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -105,17 +105,47 @@ public class HangdudeBoardServiceTest {
 		assertFalse(boardService.updateElement(null, null));
 	}
 
+	@Test
+	public void testAddCharacter() {
+		// Test with valid letter
+		HangdudeBoard board = boardService.addCharacter('G', "4");
+		assertEquals("G______", board.getWordState());
+		assertEquals(0, board.getNumOfAttempts());
+
+		// Test with invalid letter
+		board = boardService.addCharacter('Z', "4");
+		assertEquals("G______", board.getWordState());
+		assertEquals(1, board.getNumOfAttempts());
+
+		board = boardService.addCharacter('E', "4");
+		assertEquals("GE_____", board.getWordState());
+		assertEquals(1, board.getNumOfAttempts());
+	}
+
+	@Test
+	public void testInvalidAddCharacter() {
+		// Test with invalid key
+		HangdudeBoard board1 = boardService.addCharacter('G', "7");
+		assertNull(board1);
+
+		// Test with null parameters
+		HangdudeBoard board2 = boardService.addCharacter(null, "4");
+		assertNull(board2);
+	}
+
 	private void createAndTestBoard(String id, Category category, Difficulty difficulty) {
 		Dude dude = Dude.builder().id("user_" + id).build();
 		GameWord gameWord = WordFactory.getWord(category, difficulty);
 		HangdudeBoard board = new HangdudeBoard(dude, gameWord);
 
 		boolean check = boardService.addElement(id, board);
+		char[] chars = new char[gameWord.getWord().length()];
+		Arrays.fill(chars, HangdudeBoard.EMPTY_CHARACTER);
 
 		assertTrue(check);
 		assertEquals(dude, board.getDude());
 		assertEquals(gameWord, board.getCurrentWord());
-		assertEquals(StringUtils.EMPTY, board.getWordState());
+		assertEquals(new String(chars), board.getWordState());
 		assertEquals(0, board.getNumOfAttempts());
 	}
 

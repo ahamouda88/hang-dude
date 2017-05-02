@@ -30,7 +30,37 @@ public class HangdudeBoardService extends AbsMainService<HangdudeBoard, String>
 	 */
 	@Override
 	public HangdudeBoard addCharacter(Character character, String key) {
-		return null;
+		if (key == null || character == null) {
+			LOGGER.error("Failed to add character, due to invalid parameters. Key: {}, and character: {}.", key,
+					character);
+			return null;
+		}
+
+		if (!elements.containsKey(key)) {
+			LOGGER.error("Failed to add character. Board with the given key '{}' doesn't exist.", key);
+			return null;
+		}
+
+		HangdudeBoard board = elements.get(key);
+		String newWord = wordService.addCharacter(character, board.getWordState(), board.getCurrentWord());
+
+		// If new word is null means the character doesn't exist in the word
+		if (newWord == null) {
+			board.setNumOfAttempts(board.getNumOfAttempts() + 1);
+			elements.put(key, board);
+			return board;
+		}
+
+		/*
+		 * If original word is equal to the new word, that means the user has completed the game, and should add the
+		 * current word to completed words
+		 */
+		board.setWordState(newWord);
+		if (board.getCurrentWord().getWord().equals(newWord)) {
+			board.getDude().getCompletedWords().add(board.getCurrentWord());
+		}
+		elements.put(key, board);
+		return board;
 	}
 
 }
