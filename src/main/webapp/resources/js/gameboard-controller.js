@@ -11,6 +11,20 @@
 				$scope.categories = data;
 			});
 		};
+		
+		// Add Board
+		$scope.addBoard = function() {
+			var boardRequest = {
+				category: $scope.board.word.category,
+				difficulty: $scope.board.word.difficulty,
+				username: $scope.board.username
+			};
+			var response = GameBoardService.addBoard(boardRequest);
+			response.success(function(data) {
+				alert(JSON.stringify(data));
+				$scope.currentboard = data;
+			});
+		};
 
 		$scope.initWelcomePage = function() {
 			$scope.getCategories();

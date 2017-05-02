@@ -20,7 +20,7 @@ import com.hangdude.model.Category;
 import com.hangdude.model.Difficulty;
 import com.hangdude.model.Dude;
 import com.hangdude.model.GameWord;
-import com.hangdude.model.board.HangdudeBoard;
+import com.hangdude.model.HangdudeBoard;
 import com.hangdude.utils.factory.WordFactory;
 
 @RunWith(SpringRunner.class)

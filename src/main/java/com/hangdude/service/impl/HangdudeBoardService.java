@@ -6,7 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.hangdude.model.GameWord;
-import com.hangdude.model.board.HangdudeBoard;
+import com.hangdude.model.HangdudeBoard;
 import com.hangdude.service.BoardService;
 import com.hangdude.service.WordService;
 

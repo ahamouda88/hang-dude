@@ -1,4 +1,4 @@
-package com.hangdude.controller;
+package com.hangdude.api.controller;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -20,6 +20,11 @@ public class SpringAngularController {
 	@RequestMapping(value = "/welcomePage", method = RequestMethod.GET)
 	public String welcomePage() {
 		return PageConstants.WELCOME_PAGE;
+	}
+
+	@RequestMapping(value = "/boardPage", method = RequestMethod.GET)
+	public String boardPage() {
+		return PageConstants.BOARD_PAGE;
 	}
 
 }

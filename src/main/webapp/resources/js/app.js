@@ -4,10 +4,12 @@
 	// Handle routes
 	application.config([ '$routeProvider', function($routeProvider) {
 		$routeProvider.when('/', {
-			templateUrl : '/welcomePage',
+			templateUrl : '/boardPage',
 			resolve : {
 				factory : checkRouting
 			}
+		}).when('/login', {
+			templateUrl : '/boardPage'
 		}).otherwise({
 			redirectTo : '/'
 		});
