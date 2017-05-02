@@ -1,17 +1,25 @@
 package com.hangdude.service;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNull;
 
 import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.junit4.SpringRunner;
 
+import com.hangdude.config.SpringBootConfig;
 import com.hangdude.model.Category;
 import com.hangdude.model.Difficulty;
 import com.hangdude.model.GameWord;
-import com.hangdude.service.impl.GameWordService;
 
+@RunWith(SpringRunner.class)
+@SpringBootTest(classes = { SpringBootConfig.class })
 public class GameWordServiceTest {
 
-	private final WordService<GameWord> wordService = new GameWordService();
+	@Autowired
+	private WordService<GameWord> wordService;
 
 	@Test
 	public void testAddCharacter() {

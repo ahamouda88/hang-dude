@@ -8,6 +8,7 @@ import java.util.Set;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.stereotype.Service;
 
 import com.hangdude.model.Category;
 import com.hangdude.model.Difficulty;
@@ -21,6 +22,7 @@ import com.hangdude.utils.factory.WordFactory;
  * @author ahamouda
  *
  */
+@Service
 public class GameWordService implements WordService<GameWord> {
 
 	private static final Logger LOGGER = LoggerFactory.getLogger(GameWordService.class);

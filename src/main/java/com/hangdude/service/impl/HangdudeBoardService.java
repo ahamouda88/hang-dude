@@ -2,6 +2,8 @@ package com.hangdude.service.impl;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import com.hangdude.model.GameWord;
 import com.hangdude.model.board.HangdudeBoard;
@@ -14,16 +16,14 @@ import com.hangdude.service.WordService;
  * @author ahamouda
  *
  */
+@Service
 public class HangdudeBoardService extends AbsMainService<HangdudeBoard, String>
 		implements BoardService<HangdudeBoard, String> {
 
 	private static final Logger LOGGER = LoggerFactory.getLogger(HangdudeBoardService.class);
 
-	private final WordService<GameWord> wordService;
-
-	public HangdudeBoardService(WordService<GameWord> wordService) {
-		this.wordService = wordService;
-	}
+	@Autowired
+	private WordService<GameWord> wordService;
 
 	/**
 	 * @see BoardService#addCharacter(Character, Object)

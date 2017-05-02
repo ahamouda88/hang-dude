@@ -10,18 +10,25 @@ import java.util.List;
 
 import org.junit.Before;
 import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.junit4.SpringRunner;
 
+import com.hangdude.config.SpringBootConfig;
 import com.hangdude.model.Category;
 import com.hangdude.model.Difficulty;
 import com.hangdude.model.Dude;
 import com.hangdude.model.GameWord;
 import com.hangdude.model.board.HangdudeBoard;
-import com.hangdude.utils.factory.BoardServiceFactory;
 import com.hangdude.utils.factory.WordFactory;
 
+@RunWith(SpringRunner.class)
+@SpringBootTest(classes = { SpringBootConfig.class })
 public class HangdudeBoardServiceTest {
 
-	private BoardService<HangdudeBoard, String> boardService = BoardServiceFactory.getInstance();
+	@Autowired
+	private BoardService<HangdudeBoard, String> boardService;
 
 	@Before
 	public void testAddBoard() {
