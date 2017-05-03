@@ -7,7 +7,7 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 
 /**
- * This Spring Configuration class, is used for starting the application using Spring Boot
+ * This Spring Configuration class, is used for launching the application
  * 
  * @author ahamouda
  * 
@@ -24,6 +24,5 @@ public class SpringBootConfig extends SpringBootServletInitializer {
 	protected SpringApplicationBuilder configure(SpringApplicationBuilder application) {
 		return application.sources(SpringBootConfig.class);
 	}
-	
-	
+
 }

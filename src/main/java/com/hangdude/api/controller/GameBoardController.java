@@ -33,7 +33,7 @@ public class GameBoardController {
 
 	@RequestMapping(value = PathConstants.CATEGORIES, method = RequestMethod.GET)
 	public ResponseEntity<List<Category>> getCategories() throws Exception {
-		return new ResponseEntity<List<Category>>(Arrays.asList(Category.values()), HttpStatus.OK);
+		return new ResponseEntity<>(Arrays.asList(Category.values()), HttpStatus.OK);
 	}
 
 	@RequestMapping(method = RequestMethod.GET)

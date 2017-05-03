@@ -27,6 +27,12 @@
 	</properties>
 
 	<dependencies>
+		<!-- Json Simple Dependency -->
+		<dependency>
+			<groupId>com.googlecode.json-simple</groupId>
+			<artifactId>json-simple</artifactId>
+		</dependency>
+
 		<!-- JUnit Dependency -->
 		<dependency>
 			<groupId>junit</groupId>
@@ -41,14 +47,14 @@
 			<version>${commons.version}</version>
 		</dependency>
 
-		<!-- Guava Dependcy -->
+		<!-- Guava Dependency -->
 		<dependency>
 			<groupId>com.google.guava</groupId>
 			<artifactId>guava</artifactId>
 			<version>${guava.version}</version>
 		</dependency>
 
-		<!-- Jackson API Dependency -->
+		<!-- Jackson API Dependencies -->
 		<dependency>
 			<groupId>com.fasterxml.jackson.core</groupId>
 			<artifactId>jackson-databind</artifactId>

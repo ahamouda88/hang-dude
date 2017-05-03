@@ -17,7 +17,7 @@
 	// Game Board Controller
 	function GameBoardController($scope, $rootScope, $location, GameBoardService) {
 
-		// Get Countries function
+		// Get Categories function
 		$scope.getCategories = function() {
 			var response = GameBoardService.getCategories();
 			response.success(function(data) {
@@ -52,6 +52,7 @@
 				response = GameBoardService.addCharacter(character);
 			
 			response.success(function(data) {
+				// TODO: Will add logic to check if success or number of attempts are over!
 				$scope.setCurrentBoard(data);
 			});
 		};

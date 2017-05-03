@@ -25,8 +25,7 @@
 		// Add Character
 		this.addCharacter = function(character) {
 			if (character === undefined) return;
-
-			// TODO: Will add logic to check if success or number of attemps are over! (Here or Controller?)
+			
 			return $http.get(gameBoardPath + '/' + character);
 		};
 	}

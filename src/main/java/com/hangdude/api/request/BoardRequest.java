@@ -1,5 +1,7 @@
 package com.hangdude.api.request;
 
+import java.io.Serializable;
+
 import com.hangdude.model.Category;
 import com.hangdude.model.Difficulty;
 
@@ -9,11 +11,22 @@ import com.hangdude.model.Difficulty;
  * @author ahamouda
  *
  */
-public class BoardRequest {
+public class BoardRequest implements Serializable {
+
+	private static final long serialVersionUID = 1L;
 
 	private Category category;
 	private Difficulty difficulty;
 	private String username;
+
+	public BoardRequest() {
+	}
+
+	public BoardRequest(Category category, Difficulty difficulty, String username) {
+		this.category = category;
+		this.difficulty = difficulty;
+		this.username = username;
+	}
 
 	public Category getCategory() {
 		return category;
