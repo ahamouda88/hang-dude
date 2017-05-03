@@ -1,10 +1,14 @@
 package com.hangdude.service.impl;
 
+import static org.springframework.util.StringUtils.isEmpty;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.hangdude.api.request.BoardRequest;
+import com.hangdude.model.Dude;
 import com.hangdude.model.GameWord;
 import com.hangdude.model.HangdudeBoard;
 import com.hangdude.service.BoardService;
@@ -61,6 +65,32 @@ public class HangdudeBoardService extends AbsMainService<HangdudeBoard, String>
 		}
 		elements.put(key, board);
 		return board;
+	}
+
+	/**
+	 * @see BoardService#addUpdateBoard(Object, BoardRequest)
+	 */
+	@Override
+	public HangdudeBoard addUpdateBoard(String key, BoardRequest request) {
+		// Create board objects
+		String username = isEmpty(request.getUsername()) ? "Anonymous" : request.getUsername();
+		Dude dude = Dude.builder().id(key).username(username).build();
+		GameWord gameWord = wordService.getWord(request.getCategory(), request.getDifficulty());
+
+		HangdudeBoard newBoard = new HangdudeBoard(dude, gameWord);
+
+		/*
+		 * Check if board associated with the given key already exists, and if board exists then update the current
+		 * board associated with the given key
+		 */
+		boolean check;
+		if (this.getElement(key) != null) {
+			check = this.updateElement(key, newBoard);
+		} else {
+			check = this.addElement(key, newBoard);
+		}
+
+		return check ? newBoard : null;
 	}
 
 }

@@ -13,7 +13,7 @@ import org.springframework.context.annotation.Configuration;
  * 
  */
 @Configuration
-@ComponentScan(basePackages = { "com.hangdude.service", "com.hangdude.controller" })
+@ComponentScan(basePackages = { "com.hangdude.service", "com.hangdude.api.controller" })
 public class SpringBootConfig extends SpringBootServletInitializer {
 
 	public static void main(String[] args) {

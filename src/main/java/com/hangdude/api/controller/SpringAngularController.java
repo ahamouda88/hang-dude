@@ -17,12 +17,12 @@ public class SpringAngularController {
 		return PageConstants.APP_PAGE;
 	}
 
-	@RequestMapping(value = "/welcomePage", method = RequestMethod.GET)
+	@RequestMapping(value = "/welcome-page", method = RequestMethod.GET)
 	public String welcomePage() {
 		return PageConstants.WELCOME_PAGE;
 	}
 
-	@RequestMapping(value = "/boardPage", method = RequestMethod.GET)
+	@RequestMapping(value = "/board-page", method = RequestMethod.GET)
 	public String boardPage() {
 		return PageConstants.BOARD_PAGE;
 	}

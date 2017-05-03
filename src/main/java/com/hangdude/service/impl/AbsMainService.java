@@ -44,7 +44,6 @@ public abstract class AbsMainService<T, E> implements MainService<T, E> {
 			LOGGER.error("Failed to return an element, due to invalid parameter. Key: {}.", key);
 			return null;
 		}
-
 		return elements.get(key);
 	}
 

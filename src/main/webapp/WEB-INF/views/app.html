@@ -5,6 +5,19 @@
 		<title>Hangdude</title>
 	</head>
 	<body data-ng-app="application">
+		<nav class="navbar navbar-inverse">
+	  		<div class="container-fluid">
+	    		<div class="navbar-header">
+	    			<a href="#/" class="navbar-brand">New Game</a>
+	    			<a href="#/board-page" class="navbar-brand" data-ng-show="currentboard !== null">Continue Playing!</a>
+	   			</div>
+	  		</div>
+	  		<div class="collapse navbar-collapse" id="myNavbar">
+	  			<ul class="nav navbar-nav navbar-right">
+	        		<li><a data-ng-show="currentboard !== null">Welcome: {{ currentboard.dude.username }}</a></li>
+	      		</ul>
+	    	</div>
+		</nav>
 		<div data-ng-view></div>
 		
     	<!-- scripts -->

@@ -38,5 +38,8 @@
 	            <button type="submit" class="btn btn-primary">Let's Go!</button>
 	        </div>
 	    </div>
+	    
+	    <!-- Status Messages -->
+	    <div data-ng-if="board.error" class="alert alert-danger" role="alert">{{ board.error.message }}</div>
 	</form>
 </div>
