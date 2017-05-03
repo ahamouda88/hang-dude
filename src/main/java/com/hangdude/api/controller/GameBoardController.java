@@ -42,7 +42,7 @@ public class GameBoardController {
 
 		HangdudeBoard board = obj instanceof HangdudeBoard ? (HangdudeBoard) obj : null;
 
-		return createResponse(board);
+		return new ResponseEntity<>(board, HttpStatus.OK);
 	}
 
 	@RequestMapping(method = RequestMethod.POST)

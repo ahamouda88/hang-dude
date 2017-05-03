@@ -48,6 +48,10 @@ public class HangdudeBoardService extends AbsMainService<HangdudeBoard, String>
 		HangdudeBoard board = elements.get(key);
 		String newWord = wordService.addCharacter(character, board.getWordState(), board.getCurrentWord());
 
+		// Set attempted character as true
+		int charPos = character - 'A';
+		board.getClickedChars()[charPos] = true;
+
 		// If new word is null means the character doesn't exist in the word
 		if (newWord == null) {
 			board.setNumOfAttempts(board.getNumOfAttempts() + 1);

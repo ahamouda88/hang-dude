@@ -115,18 +115,27 @@ public class HangdudeBoardServiceTest {
 	@Test
 	public void testAddCharacter() {
 		// Test with valid letter
-		HangdudeBoard board = boardService.addCharacter('G', "4");
+		char character = 'G';
+		HangdudeBoard board = boardService.addCharacter(character, "4");
+		int charPos = character - 'A';
 		assertEquals("G______", board.getWordState());
 		assertEquals(0, board.getNumOfAttempts());
+		assertTrue(board.getClickedChars()[charPos]);
 
 		// Test with invalid letter
-		board = boardService.addCharacter('Z', "4");
+		character = 'Z';
+		board = boardService.addCharacter(character, "4");
+		charPos = character - 'A';
 		assertEquals("G______", board.getWordState());
 		assertEquals(1, board.getNumOfAttempts());
+		assertTrue(board.getClickedChars()[charPos]);
 
-		board = boardService.addCharacter('E', "4");
+		character = 'E';
+		board = boardService.addCharacter(character, "4");
+		charPos = character - 'A';
 		assertEquals("GE_____", board.getWordState());
 		assertEquals(1, board.getNumOfAttempts());
+		assertTrue(board.getClickedChars()[charPos]);
 	}
 
 	@Test

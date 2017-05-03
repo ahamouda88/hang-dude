@@ -1,6 +1,5 @@
 (function() {
 	var application = angular.module('application'),
-		boardCookieKey = 'currentboard',
 		imageRootPath = 'resources/images/',
 		images =[
 		         imageRootPath + 'image_1.jpeg',
@@ -11,26 +10,18 @@
 		         imageRootPath + 'image_6.jpeg',
 		         imageRootPath + 'image_7.jpeg',
 		         imageRootPath + 'image_8.jpeg',
-		         imageRootPath + 'image_9.jpeg'
+		         imageRootPath + 'image_9.jpeg',
+		         imageRootPath + 'success_image.jpeg'
 		        ];
 
 	// Game Board Controller
-	function GameBoardController($scope, $rootScope, $cookies, $location, GameBoardService) {
+	function GameBoardController($scope, $rootScope, $location, GameBoardService) {
 
-		
 		// Get Countries function
 		$scope.getCategories = function() {
 			var response = GameBoardService.getCategories();
 			response.success(function(data) {
 				$scope.categories = data;
-			});
-		};
-		
-		// Get current board
-		$scope.getCurrentBoard = function() {
-			var response = GameBoardService.getCurrentBoard();
-			response.success(function(data) {
-				
 			});
 		};
 		
@@ -44,7 +35,7 @@
 			
 			var response = GameBoardService.addBoard(boardRequest);
 			response.success(function(data) {
-				setCurrentBoard(data);
+				$scope.setCurrentBoard(data);
 				$location.path('/board-page');
 			});
 			response.error(function(data) {
@@ -61,15 +52,16 @@
 				response = GameBoardService.addCharacter(character);
 			
 			response.success(function(data) {
-				setCurrentBoard(data);
+				$scope.setCurrentBoard(data);
 			});
 		};
 		
+		// Loading current board function
 		$scope.loadCurrentBoard = function() {
-			var board = $cookies.get(boardCookieKey);
-			if(board){
-				$rootScope.currentboard = JSON.parse(board);
-			}
+			var response = GameBoardService.getCurrentBoard();
+			response.success(function(data) {
+				$scope.setCurrentBoard(data);
+			});
 		};
 
 		$scope.initWelcomePage = function() {
@@ -77,11 +69,12 @@
 			$scope.loadCurrentBoard();
 		};
 		
-		setCurrentBoard = function(data) {
-			$scope.currentboard = data;
-			$scope.currentboard.image = images[data.numOfAttempts];
+		// Setting current board game function
+		$scope.setCurrentBoard = function(board) {
+			if(!board) return;
 			
-			$cookies.put(boardCookieKey, JSON.stringify($scope.currentboard));
+			$rootScope.currentboard = board;
+			$rootScope.currentboard.image = images[board.numOfAttempts];
 		};
 	}
 

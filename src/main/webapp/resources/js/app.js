@@ -1,14 +1,6 @@
 (function() {
-	var application = angular.module('application', [ 'ngRoute', 'ngCookies' ]),
-		boardCookieKey = 'currentboard';
+	var application = angular.module('application', [ 'ngRoute', 'ngCookies' ]);
 
-	// Run code on application startup
-//	application.run(function($cookies) {
-//		alert($cookies.get(boardCookieKey));
-//		// Remove the currentboard cookie
-//		$cookies.remove(boardCookieKey);
-//	});
-	
 	// Handle routes
 	application.config([ '$routeProvider', function($routeProvider) {
 		$routeProvider.when('/', {
@@ -23,9 +15,8 @@
 		});
 	} ]);
 
-	var checkRouting = function($location, $cookies) {
-		var currentboard = $cookies.get(boardCookieKey);
-		if (currentboard) {
+	var checkRouting = function($location, $rootScope) {
+		if ($rootScope.currentboard) {
 			return true;
 		}
 		$location.path("/");
