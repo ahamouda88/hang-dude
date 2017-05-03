@@ -1,4 +1,4 @@
-package com.hangdude.config;
+package com.hangdude.config.spring;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.builder.SpringApplicationBuilder;
@@ -24,4 +24,6 @@ public class SpringBootConfig extends SpringBootServletInitializer {
 	protected SpringApplicationBuilder configure(SpringApplicationBuilder application) {
 		return application.sources(SpringBootConfig.class);
 	}
+	
+	
 }

@@ -17,7 +17,8 @@
 	// Game Board Controller
 	function GameBoardController($scope, $rootScope, $cookies, $location, GameBoardService) {
 
-		// Get Countries
+		
+		// Get Countries function
 		$scope.getCategories = function() {
 			var response = GameBoardService.getCategories();
 			response.success(function(data) {
@@ -25,7 +26,15 @@
 			});
 		};
 		
-		// Add Board
+		// Get current board
+		$scope.getCurrentBoard = function() {
+			var response = GameBoardService.getCurrentBoard();
+			response.success(function(data) {
+				
+			});
+		};
+		
+		// Add Board function
 		$scope.addBoard = function() {
 			var boardRequest = {
 				category: $scope.board.word.category,
@@ -35,10 +44,7 @@
 			
 			var response = GameBoardService.addBoard(boardRequest);
 			response.success(function(data) {
-				var currentboard = data;
-				currentboard.image = images[data.numOfAttempts];
-				
-				$cookies.put(boardCookieKey, JSON.stringify(currentboard));
+				setCurrentBoard(data);
 				$location.path('/board-page');
 			});
 			response.error(function(data) {
@@ -46,6 +52,16 @@
 					errorCode : -1,
 					message : 'Failed to fetch word. Please try again!'
 				};
+			});
+		};
+		
+		// Add Character function
+		$scope.addCharacter = function(element){
+			var character = element.currentTarget.value,
+				response = GameBoardService.addCharacter(character);
+			
+			response.success(function(data) {
+				setCurrentBoard(data);
 			});
 		};
 		
@@ -59,6 +75,13 @@
 		$scope.initWelcomePage = function() {
 			$scope.getCategories();
 			$scope.loadCurrentBoard();
+		};
+		
+		setCurrentBoard = function(data) {
+			$scope.currentboard = data;
+			$scope.currentboard.image = images[data.numOfAttempts];
+			
+			$cookies.put(boardCookieKey, JSON.stringify($scope.currentboard));
 		};
 	}
 

@@ -8,6 +8,7 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -28,10 +29,20 @@ public class GameBoardController {
 
 	@Autowired
 	private BoardService<HangdudeBoard, String> boardService;
+	private final static String USER_ID = "USERID";
 
 	@RequestMapping(value = PathConstants.CATEGORIES, method = RequestMethod.GET)
 	public ResponseEntity<List<Category>> getCategories() throws Exception {
 		return new ResponseEntity<List<Category>>(Arrays.asList(Category.values()), HttpStatus.OK);
+	}
+
+	@RequestMapping(method = RequestMethod.GET)
+	public ResponseEntity<HangdudeBoard> getCurrentBoard(HttpSession session) throws Exception {
+		Object obj = session.getAttribute(USER_ID);
+
+		HangdudeBoard board = obj instanceof HangdudeBoard ? (HangdudeBoard) obj : null;
+
+		return createResponse(board);
 	}
 
 	@RequestMapping(method = RequestMethod.POST)
@@ -41,10 +52,22 @@ public class GameBoardController {
 		/* Note: in this implementation, I'm using the session id as the key */
 		HangdudeBoard board = boardService.addUpdateBoard(session.getId(), request);
 
-		if (board == null) {
-			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-		} else {
-			return new ResponseEntity<>(board, HttpStatus.OK);
-		}
+		if (board != null) session.setAttribute(USER_ID, board);
+
+		return createResponse(board);
+	}
+
+	@RequestMapping(value = PathConstants.CHARACTER_PATH, method = RequestMethod.GET)
+	public ResponseEntity<HangdudeBoard> addCharacter(HttpSession session, @PathVariable("char") Character character)
+			throws Exception {
+
+		HangdudeBoard board = boardService.addCharacter(character, session.getId());
+
+		return createResponse(board);
+	}
+
+	private ResponseEntity<HangdudeBoard> createResponse(HangdudeBoard board) {
+		return board == null ? new ResponseEntity<>(HttpStatus.BAD_REQUEST)
+				: new ResponseEntity<>(board, HttpStatus.OK);
 	}
 }

@@ -4,17 +4,17 @@
 		<link rel="stylesheet" href="./webjars/bootstrap/3.3.6/css/bootstrap.css">
 		<title>Hangdude</title>
 	</head>
-	<body data-ng-app="application">
+	<body data-ng-app="application" data-ng-controller="GameBoardController">
 		<nav class="navbar navbar-inverse">
 	  		<div class="container-fluid">
 	    		<div class="navbar-header">
 	    			<a href="#/" class="navbar-brand">New Game</a>
-	    			<a href="#/board-page" class="navbar-brand" data-ng-show="currentboard !== null">Continue Playing!</a>
+	    			<a href="#/board-page" class="navbar-brand" data-ng-show="currentboard">Continue Playing!</a>
 	   			</div>
 	  		</div>
 	  		<div class="collapse navbar-collapse" id="myNavbar">
 	  			<ul class="nav navbar-nav navbar-right">
-	        		<li><a data-ng-show="currentboard !== null">Welcome: {{ currentboard.dude.username }}</a></li>
+	        		<li><a data-ng-show="currentboard">Welcome: {{ currentboard.dude.username }}</a></li>
 	      		</ul>
 	    	</div>
 		</nav>

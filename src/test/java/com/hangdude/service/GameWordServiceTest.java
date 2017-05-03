@@ -9,7 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
-import com.hangdude.config.SpringBootConfig;
+import com.hangdude.config.spring.SpringBootConfig;
 import com.hangdude.model.Category;
 import com.hangdude.model.Difficulty;
 import com.hangdude.model.GameWord;

@@ -2,6 +2,13 @@
 	var application = angular.module('application', [ 'ngRoute', 'ngCookies' ]),
 		boardCookieKey = 'currentboard';
 
+	// Run code on application startup
+//	application.run(function($cookies) {
+//		alert($cookies.get(boardCookieKey));
+//		// Remove the currentboard cookie
+//		$cookies.remove(boardCookieKey);
+//	});
+	
 	// Handle routes
 	application.config([ '$routeProvider', function($routeProvider) {
 		$routeProvider.when('/', {
