@@ -40,7 +40,7 @@
 				$location.path('/board-page');
 			});
 			response.error(function(data) {
-				$scope.board.error = {
+				$scope.currentboard.error = {
 					errorCode : -1,
 					message : 'Failed to fetch word. Please try again!'
 				};
