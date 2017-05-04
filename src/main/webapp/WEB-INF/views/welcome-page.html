@@ -1,0 +1,45 @@
+<div data-ng-controller="GameBoardController">
+	<div class="page-header">
+		<h2>Welcome to Hangdude Game!</h2>
+	</div>
+	<h3 class="bg-primary text-white">Choose a word</h3>
+	<form name="word-form" class="form-horizontal" data-ng-submit="addBoard()" data-ng-init="initWelcomePage()">
+		<!-- Username field -->
+	    <div class="form-group">
+	        <label for="input-username" class="control-label col-xs-2">Username:</label>
+	        <div class="col-xs-4">
+	            <input data-ng-model="board.username" class="form-control" id="input-username" placeholder="Username">
+	        </div>
+	    </div>
+	    <!-- Category drop-down List -->
+		<div class="form-group">
+			<label for="input-category" class="control-label col-xs-2">Category:</label>
+			<div class="col-xs-4">
+				<select data-ng-model="board.word.category" class="form-control" id="input-category" data-ng-options="category for category in categories" required>
+	  				<option value="">Select a Category</option>
+				</select>
+			</div>
+		</div>
+		<!-- Difficulty drop-down List -->
+		<div class="form-group">
+			<label for="input-difficulty" class="control-label col-xs-2">Difficulty:</label>
+			<div class="col-xs-4">
+				<select data-ng-model="board.word.difficulty" class="form-control" id="sel1" required>
+					<option value=""></option>
+					<option value="EASY">Easy</option>
+					<option value="MEDIUM">Medium</option>
+					<option value="HARD">Hard</option>
+				</select>
+			</div>
+		</div>
+		<!-- Submit Button -->
+	    <div class="form-group">
+	        <div class="col-xs-offset-2 col-xs-10">
+	            <button type="submit" class="btn btn-primary">Let's Go!</button>
+	        </div>
+	    </div>
+	    
+	    <!-- Status Messages -->
+	    <div data-ng-if="board.error" class="alert alert-danger" role="alert">{{ board.error.message }}</div>
+	</form>
+</div>

@@ -1,26 +1,25 @@
 (function() {
-	alert("asdasd");
 	var application = angular.module('application', [ 'ngRoute', 'ngCookies' ]);
 
 	// Handle routes
 	application.config([ '$routeProvider', function($routeProvider) {
 		$routeProvider.when('/', {
-			templateUrl : '../../WEB-INF/views/homepage.html',
-//			resolve : {
-//				factory : checkRouting
-//			}
+			templateUrl : '/welcome-page'
+		}).when('/board-page', {
+			templateUrl : '/board-page',
+			resolve : {
+				factory : checkRouting
+			}
+		}).when('/all-boards-page', {
+			templateUrl : '/all-boards-page'
 		}).otherwise({
 			redirectTo : '/'
 		});
 	} ]);
 
-	// Check first if currentUser is authenticated, before doing the route
-	/*var checkRouting = function($rootScope, $location) {
-		if ($rootScope.authenticated) {
-			return true;
-		} else {
-			$location.path("/login");
-			return false;
-		}
-	};*/
+	var checkRouting = function($location, $rootScope) {
+		if ($rootScope.currentboard) return true;
+		
+		$location.path("/");
+	};
 })();

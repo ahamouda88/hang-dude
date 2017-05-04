@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<link rel="stylesheet" href="./webjars/bootstrap/3.3.6/css/bootstrap.css">
+		<title>Hangdude</title>
+	</head>
+	<body data-ng-app="application" data-ng-controller="GameBoardController">
+		<nav class="navbar navbar-inverse">
+	  		<div class="container-fluid">
+	    		<div class="navbar-header">
+	    			<a href="#/" class="navbar-brand">New Game</a>
+	    			<a href="#/board-page" class="navbar-brand" data-ng-show="currentboard">Continue Playing!</a>
+	    			<a href="#/all-boards-page" class="navbar-brand">All Games</a>
+	   			</div>
+	  		</div>
+	  		<div class="collapse navbar-collapse" id="myNavbar">
+	  			<ul class="nav navbar-nav navbar-right">
+	        		<li><a data-ng-show="currentboard">Welcome: {{ currentboard.dude.username }}</a></li>
+	      		</ul>
+	    	</div>
+		</nav>
+		<div data-ng-view></div>
+		
+    	<!-- scripts -->
+		<script type="text/javascript" src="./webjars/angularjs/1.4.8/angular.js"></script>
+		<script type="text/javascript" src="./webjars/angularjs/1.4.8/angular-resource.js"></script>
+		<script type="text/javascript" src="./webjars/angularjs/1.4.8/angular-route.js"></script>
+		<script type="text/javascript" src="./webjars/angularjs/1.4.8/angular-cookies.js"></script>
+		<script type="text/javascript" src="../../resources/js/app.js"></script>
+		<script type="text/javascript" src="../../resources/js/gameboard-service.js"></script>
+		<script type="text/javascript" src="../../resources/js/gameboard-controller.js"></script>
+	</body>
+</html>

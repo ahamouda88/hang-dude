@@ -10,18 +10,25 @@ import java.util.List;
 
 import org.junit.Before;
 import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.junit4.SpringRunner;
 
+import com.hangdude.config.spring.SpringBootConfig;
 import com.hangdude.model.Category;
 import com.hangdude.model.Difficulty;
 import com.hangdude.model.Dude;
 import com.hangdude.model.GameWord;
-import com.hangdude.model.board.HangdudeBoard;
-import com.hangdude.utils.factory.BoardServiceFactory;
+import com.hangdude.model.HangdudeBoard;
 import com.hangdude.utils.factory.WordFactory;
 
+@RunWith(SpringRunner.class)
+@SpringBootTest(classes = { SpringBootConfig.class })
 public class HangdudeBoardServiceTest {
 
-	private BoardService<HangdudeBoard, String> boardService = BoardServiceFactory.getInstance();
+	@Autowired
+	private BoardService<HangdudeBoard, String> boardService;
 
 	@Before
 	public void testAddBoard() {
@@ -108,18 +115,27 @@ public class HangdudeBoardServiceTest {
 	@Test
 	public void testAddCharacter() {
 		// Test with valid letter
-		HangdudeBoard board = boardService.addCharacter('G', "4");
+		char character = 'G';
+		HangdudeBoard board = boardService.addCharacter(character, "4");
+		int charPos = character - 'A';
 		assertEquals("G______", board.getWordState());
 		assertEquals(0, board.getNumOfAttempts());
+		assertTrue(board.getClickedChars()[charPos]);
 
 		// Test with invalid letter
-		board = boardService.addCharacter('Z', "4");
+		character = 'Z';
+		board = boardService.addCharacter(character, "4");
+		charPos = character - 'A';
 		assertEquals("G______", board.getWordState());
 		assertEquals(1, board.getNumOfAttempts());
+		assertTrue(board.getClickedChars()[charPos]);
 
-		board = boardService.addCharacter('E', "4");
+		character = 'E';
+		board = boardService.addCharacter(character, "4");
+		charPos = character - 'A';
 		assertEquals("GE_____", board.getWordState());
 		assertEquals(1, board.getNumOfAttempts());
+		assertTrue(board.getClickedChars()[charPos]);
 	}
 
 	@Test

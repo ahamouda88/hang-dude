@@ -1,0 +1,45 @@
+<div data-ng-controller="GameBoardController">
+	<form name="word-form" data-ng-init="loadCurrentBoard()">
+		<div class="form-group text-center">
+			<img class="img-rounded" width="304" height="236" data-ng-src="{{currentboard.image}}" style="border:2px darkred solid"/>
+		</div>
+		<div class="form-group text-center">
+			<span data-ng-repeat="letter in currentboard.wordState.split(' ').join('&nbsp;').split('') track by $index">
+      			<span class="text-info" style="font-size:50px" data-ng-trim="false" data-ng-bind="letter"></span>
+    		</span>
+   		</div>
+    	<div class="form-group text-center">
+			<div class="btn-toolbar btn-group-lg btn-group-justified">
+				<button class="btn btn-success" value="A" data-ng-click="addCharacter($event)" data-ng-disabled="currentboard.clickedChars[0]">A</button>
+				<button class="btn btn-success" value="B" data-ng-click="addCharacter($event)" data-ng-disabled="currentboard.clickedChars[1]">B</button>
+				<button class="btn btn-success" value="C" data-ng-click="addCharacter($event)" data-ng-disabled="currentboard.clickedChars[2]">C</button>
+				<button class="btn btn-success" value="D" data-ng-click="addCharacter($event)" data-ng-disabled="currentboard.clickedChars[3]">D</button>
+				<button class="btn btn-success" value="E" data-ng-click="addCharacter($event)" data-ng-disabled="currentboard.clickedChars[4]">E</button>
+				<button class="btn btn-success" value="F" data-ng-click="addCharacter($event)" data-ng-disabled="currentboard.clickedChars[5]">F</button>
+				<button class="btn btn-success" value="G" data-ng-click="addCharacter($event)" data-ng-disabled="currentboard.clickedChars[6]">G</button>
+				<button class="btn btn-success" value="H" data-ng-click="addCharacter($event)" data-ng-disabled="currentboard.clickedChars[7]">H</button>
+				<button class="btn btn-success" value="I" data-ng-click="addCharacter($event)" data-ng-disabled="currentboard.clickedChars[8]">I</button>
+				<button class="btn btn-success" value="J" data-ng-click="addCharacter($event)" data-ng-disabled="currentboard.clickedChars[9]">J</button>
+				<button class="btn btn-success" value="K" data-ng-click="addCharacter($event)" data-ng-disabled="currentboard.clickedChars[10]">K</button>
+				<button class="btn btn-success" value="L" data-ng-click="addCharacter($event)" data-ng-disabled="currentboard.clickedChars[11]">L</button>
+				<button class="btn btn-success" value="M" data-ng-click="addCharacter($event)" data-ng-disabled="currentboard.clickedChars[12]">M</button>
+			</div>
+			<div class="btn-toolbar btn-group-lg btn-group-justified">
+				<button class="btn btn-success" value="N" data-ng-click="addCharacter($event)" data-ng-disabled="currentboard.clickedChars[13]">N</button>
+				<button class="btn btn-success" value="O" data-ng-click="addCharacter($event)" data-ng-disabled="currentboard.clickedChars[14]">O</button>
+				<button class="btn btn-success" value="P" data-ng-click="addCharacter($event)" data-ng-disabled="currentboard.clickedChars[15]">P</button>
+				<button class="btn btn-success" value="Q" data-ng-click="addCharacter($event)" data-ng-disabled="currentboard.clickedChars[16]">Q</button>
+				<button class="btn btn-success" value="R" data-ng-click="addCharacter($event)" data-ng-disabled="currentboard.clickedChars[17]">R</button>
+				<button class="btn btn-success" value="S" data-ng-click="addCharacter($event)" data-ng-disabled="currentboard.clickedChars[18]">S</button>
+				<button class="btn btn-success" value="T" data-ng-click="addCharacter($event)" data-ng-disabled="currentboard.clickedChars[19]">T</button>
+				<button class="btn btn-success" value="U" data-ng-click="addCharacter($event)" data-ng-disabled="currentboard.clickedChars[20]">U</button>
+				<button class="btn btn-success" value="V" data-ng-click="addCharacter($event)" data-ng-disabled="currentboard.clickedChars[21]">V</button>
+				<button class="btn btn-success" value="W" data-ng-click="addCharacter($event)" data-ng-disabled="currentboard.clickedChars[22]">W</button>
+				<button class="btn btn-success" value="X" data-ng-click="addCharacter($event)" data-ng-disabled="currentboard.clickedChars[23]">X</button>
+				<button class="btn btn-success" value="Y" data-ng-click="addCharacter($event)" data-ng-disabled="currentboard.clickedChars[24]">Y</button>
+				<button class="btn btn-success" value="Z" data-ng-click="addCharacter($event)" data-ng-disabled="currentboard.clickedChars[25]">Z</button>
+			</div>
+		</div>
+		<div data-ng-if="currentboard.failed" class="alert alert-danger" role="alert"><strong>Game Over Dude!! Try Again.</strong></div>
+	</form>
+</div>
