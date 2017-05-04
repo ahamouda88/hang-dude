@@ -1,17 +1,23 @@
 (function() {
 	var application = angular.module("application"), 
-		gameBoardPath = '/api/board';
+		gameBoardPath = '/api/boards',
+		currentBoardPath = gameBoardPath + '/current';
 
 	// Game Board Service
 	function GameBoardService($http) {
 
 		// Return word categories
 		this.getCategories = function() {
-			return $http.get(gameBoardPath + '/categories');
+			return $http.get('/categories');
 		};
 
 		// Return current board
 		this.getCurrentBoard = function() {
+			return $http.get(currentBoardPath);
+		};
+		
+		// Return all boards
+		this.getAllBoards = function() {
 			return $http.get(gameBoardPath);
 		};
 
@@ -19,14 +25,14 @@
 		this.addBoard = function(data) {
 			if (data === undefined) return;
 
-			return $http.post(gameBoardPath, data);
+			return $http.post(currentBoardPath, data);
 		};
 
 		// Add Character
 		this.addCharacter = function(character) {
 			if (character === undefined) return;
 			
-			return $http.get(gameBoardPath + '/' + character);
+			return $http.get(currentBoardPath + '/' + character);
 		};
 	}
 

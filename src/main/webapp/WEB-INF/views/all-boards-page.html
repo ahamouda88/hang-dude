@@ -1,0 +1,27 @@
+<div data-ng-controller="GameBoardController">
+	<div class="page-header">
+		<h2>All Games Currently Being Played:</h2>
+	</div>
+	<div data-ng-init="loadAllBoards()">
+		<table class="table table-striped">
+			<thead class="thead-inverse">
+				<tr>
+					<th>Username</th>
+					<th>Word State</th>
+					<th>Category</th>
+					<th>Difficulty</th>
+					<th>NumOfAttempts</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr data-ng-repeat="board in allBoards">
+					<td>{{ board.dude.username }}</td>
+					<td>{{ board.wordState }}</td>
+					<td>{{ board.currentWord.category }}</td>
+					<td>{{ board.currentWord.difficulty }}</td>
+					<td>{{ board.numOfAttempts }}</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+</div>

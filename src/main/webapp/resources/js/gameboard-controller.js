@@ -68,6 +68,14 @@
 			});
 		};
 
+		// Loading all boards currently being played
+		$scope.loadAllBoards = function() {
+			var response = GameBoardService.getAllBoards();
+			response.success(function(data) {
+				$scope.allBoards = data;
+			});
+		};
+		
 		$scope.initWelcomePage = function() {
 			$scope.getCategories();
 			$scope.loadCurrentBoard();

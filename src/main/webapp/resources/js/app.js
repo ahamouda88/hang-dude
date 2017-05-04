@@ -10,15 +10,16 @@
 			resolve : {
 				factory : checkRouting
 			}
+		}).when('/all-boards-page', {
+			templateUrl : '/all-boards-page'
 		}).otherwise({
 			redirectTo : '/'
 		});
 	} ]);
 
 	var checkRouting = function($location, $rootScope) {
-		if ($rootScope.currentboard) {
-			return true;
-		}
+		if ($rootScope.currentboard) return true;
+		
 		$location.path("/");
 	};
 })();

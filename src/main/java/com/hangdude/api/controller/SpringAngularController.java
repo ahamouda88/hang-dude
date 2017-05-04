@@ -27,4 +27,9 @@ public class SpringAngularController {
 		return PageConstants.BOARD_PAGE;
 	}
 
+	@RequestMapping(value = "/all-boards-page", method = RequestMethod.GET)
+	public String addBoardsPage() {
+		return PageConstants.ALL_BOARDS_PAGE;
+	}
+
 }

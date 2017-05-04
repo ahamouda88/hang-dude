@@ -24,11 +24,11 @@ import com.hangdude.service.BoardService;
  * A class which is a Rest Controller for managing hangdude game boards
  */
 @RestController
-@RequestMapping(value = PathConstants.BOARD_PATH)
 public class GameBoardController {
 
 	@Autowired
 	private BoardService<HangdudeBoard, String> boardService;
+
 	private final static String USER_ID = "USERID";
 
 	@RequestMapping(value = PathConstants.CATEGORIES, method = RequestMethod.GET)
@@ -36,24 +36,28 @@ public class GameBoardController {
 		return new ResponseEntity<>(Arrays.asList(Category.values()), HttpStatus.OK);
 	}
 
-	@RequestMapping(method = RequestMethod.GET)
+	@RequestMapping(value = PathConstants.CURRENT_BOARD_PATH, method = RequestMethod.GET)
 	public ResponseEntity<HangdudeBoard> getCurrentBoard(HttpSession session) throws Exception {
 		Object obj = session.getAttribute(USER_ID);
 
 		HangdudeBoard board = obj instanceof HangdudeBoard ? (HangdudeBoard) obj : null;
-
 		return new ResponseEntity<>(board, HttpStatus.OK);
 	}
 
-	@RequestMapping(method = RequestMethod.POST)
+	@RequestMapping(value = PathConstants.CURRENT_BOARD_PATH, method = RequestMethod.POST)
 	public ResponseEntity<HangdudeBoard> addGameBoard(HttpSession session, @RequestBody BoardRequest request)
 			throws Exception {
 		/* Note: in this implementation, I'm using the session id as the key */
 		HangdudeBoard board = boardService.addUpdateBoard(session.getId(), request);
 
 		if (board != null) session.setAttribute(USER_ID, board);
-
 		return createResponse(board);
+	}
+
+	@RequestMapping(value = PathConstants.BOARDS_PATH, method = RequestMethod.GET)
+	public ResponseEntity<List<HangdudeBoard>> getAllBoards() throws Exception {
+
+		return createResponse(boardService.getAll());
 	}
 
 	@RequestMapping(value = PathConstants.CHARACTER_PATH, method = RequestMethod.GET)
@@ -61,12 +65,10 @@ public class GameBoardController {
 			throws Exception {
 
 		HangdudeBoard board = boardService.addCharacter(character, session.getId());
-
 		return createResponse(board);
 	}
 
-	private ResponseEntity<HangdudeBoard> createResponse(HangdudeBoard board) {
-		return board == null ? new ResponseEntity<>(HttpStatus.BAD_REQUEST)
-				: new ResponseEntity<>(board, HttpStatus.OK);
+	private <T> ResponseEntity<T> createResponse(T data) {
+		return data == null ? new ResponseEntity<>(HttpStatus.BAD_REQUEST) : new ResponseEntity<>(data, HttpStatus.OK);
 	}
 }

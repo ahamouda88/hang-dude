@@ -72,7 +72,7 @@ public class GameBoardControllerTest {
 
 	@Test
 	public void testGetCategories() throws Exception {
-		String path = PathConstants.BOARD_PATH + PathConstants.CATEGORIES;
+		String path = PathConstants.BOARDS_PATH + PathConstants.CATEGORIES;
 		mockMvc.perform(get(path)).andExpect(status().isOk());
 				// .andExpect(jsonPath("$[0].title", Matchers.startsWith("ahmed")))
 //				.andDo(print());
