@@ -25,7 +25,7 @@
 		this.addBoard = function(data) {
 			if (data === undefined) return;
 
-			return $http.post(currentBoardPath, data);
+			return $http.post(gameBoardPath, data);
 		};
 
 		// Add Character

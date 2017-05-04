@@ -32,32 +32,34 @@ public class GameBoardController {
 	private final static String USER_ID = "USERID";
 
 	@RequestMapping(value = PathConstants.CATEGORIES, method = RequestMethod.GET)
-	public ResponseEntity<List<Category>> getCategories() throws Exception {
+	public ResponseEntity<List<Category>> getCategories() {
 		return new ResponseEntity<>(Arrays.asList(Category.values()), HttpStatus.OK);
 	}
 
 	@RequestMapping(value = PathConstants.CURRENT_BOARD_PATH, method = RequestMethod.GET)
-	public ResponseEntity<HangdudeBoard> getCurrentBoard(HttpSession session) throws Exception {
+	public ResponseEntity<HangdudeBoard> getCurrentBoard(HttpSession session) {
 		Object obj = session.getAttribute(USER_ID);
 
 		HangdudeBoard board = obj instanceof HangdudeBoard ? (HangdudeBoard) obj : null;
-		return new ResponseEntity<>(board, HttpStatus.OK);
+		return board == null ? new ResponseEntity<>(HttpStatus.BAD_REQUEST)
+				: new ResponseEntity<>(board, HttpStatus.OK);
 	}
 
-	@RequestMapping(value = PathConstants.CURRENT_BOARD_PATH, method = RequestMethod.POST)
-	public ResponseEntity<HangdudeBoard> addGameBoard(HttpSession session, @RequestBody BoardRequest request)
-			throws Exception {
+	@RequestMapping(value = PathConstants.BOARDS_PATH, method = RequestMethod.POST)
+	public ResponseEntity<HangdudeBoard> addGameBoard(HttpSession session, @RequestBody BoardRequest request) {
 		/* Note: in this implementation, I'm using the session id as the key */
 		HangdudeBoard board = boardService.addUpdateBoard(session.getId(), request);
 
 		if (board != null) session.setAttribute(USER_ID, board);
-		return createResponse(board);
+		return board == null ? new ResponseEntity<>(HttpStatus.BAD_REQUEST)
+				: new ResponseEntity<>(board, HttpStatus.CREATED);
 	}
 
 	@RequestMapping(value = PathConstants.BOARDS_PATH, method = RequestMethod.GET)
-	public ResponseEntity<List<HangdudeBoard>> getAllBoards() throws Exception {
+	public ResponseEntity<List<HangdudeBoard>> getAllBoards() {
 
-		return createResponse(boardService.getAll());
+		List<HangdudeBoard> list = boardService.getAll();
+		return list == null ? new ResponseEntity<>(HttpStatus.BAD_REQUEST) : new ResponseEntity<>(list, HttpStatus.OK);
 	}
 
 	@RequestMapping(value = PathConstants.CHARACTER_PATH, method = RequestMethod.GET)
@@ -65,10 +67,7 @@ public class GameBoardController {
 			throws Exception {
 
 		HangdudeBoard board = boardService.addCharacter(character, session.getId());
-		return createResponse(board);
-	}
-
-	private <T> ResponseEntity<T> createResponse(T data) {
-		return data == null ? new ResponseEntity<>(HttpStatus.BAD_REQUEST) : new ResponseEntity<>(data, HttpStatus.OK);
+		return board == null ? new ResponseEntity<>(HttpStatus.BAD_REQUEST)
+				: new ResponseEntity<>(board, HttpStatus.OK);
 	}
 }

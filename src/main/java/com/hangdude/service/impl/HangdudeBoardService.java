@@ -80,7 +80,12 @@ public class HangdudeBoardService extends AbsMainService<HangdudeBoard, String>
 	 */
 	@Override
 	public HangdudeBoard addUpdateBoard(String key, BoardRequest request) {
-
+		// Validate parameters first
+		if (key == null || request == null || request.getCategory() == null || request.getDifficulty() == null) {
+			LOGGER.error("Failed to add/update board, due to invalid parameters. Key: {}, and Board Request: {}.", key,
+					request);
+			return null;
+		}
 		/*
 		 * Check if board associated with the given key already exists, and if board exists then update the current
 		 * board associated with the given key

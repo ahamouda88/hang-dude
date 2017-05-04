@@ -92,4 +92,9 @@ public class Dude implements Serializable {
 		return true;
 	}
 
+	@Override
+	public String toString() {
+		return "[id=" + id + ", username=" + username + ", completedWords=" + completedWords + "]";
+	}
+
 }

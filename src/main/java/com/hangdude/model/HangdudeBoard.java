@@ -137,4 +137,10 @@ public class HangdudeBoard implements Serializable {
 		return true;
 	}
 
+	@Override
+	public String toString() {
+		return "[dude=" + dude + ", currentWord=" + currentWord + ", wordState=" + wordState + ", numOfAttempts="
+				+ numOfAttempts + ", clickedChars=" + Arrays.toString(clickedChars) + "]";
+	}
+
 }

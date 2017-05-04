@@ -27,6 +27,6 @@ This web application is a simple version of the hangman game.
 |------------------------------------|------------------------------------------------------------------------|-------------|
 | /api/categories                    | Returns list of word categories                                        |     GET     |
 | /api/boards                        | Returns list of all games currently being played                       |     GET     |
+| /api/boards               		 | Add a new game board                   					  			  |     POST    |
 | /api/boards/current                | Get current game board of the current user                             |     GET     |
-| /api/boards/current                | Add new game board to current user                  					  |     POST    |
 | /api/boards/current/{char}         | Trying to add a character, given the character need to be added        |     GET     |

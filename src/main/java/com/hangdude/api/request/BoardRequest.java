@@ -76,4 +76,9 @@ public class BoardRequest implements Serializable {
 		return true;
 	}
 
+	@Override
+	public String toString() {
+		return "[category=" + category + ", difficulty=" + difficulty + ", username=" + username + "]";
+	}
+
 }

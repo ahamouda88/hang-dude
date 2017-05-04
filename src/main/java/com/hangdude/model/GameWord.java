@@ -122,4 +122,10 @@ public class GameWord implements Serializable {
 		return true;
 	}
 
+	@Override
+	public String toString() {
+		return "[word=" + word + ", difficulty=" + difficulty + ", category=" + category + ", charPositions="
+				+ charPositions + "]";
+	}
+
 }
