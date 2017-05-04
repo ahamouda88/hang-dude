@@ -19,16 +19,14 @@ public class HangdudeBoard implements Serializable {
 	private static final Logger LOGGER = LoggerFactory.getLogger(HangdudeBoard.class);
 
 	public static final char EMPTY_CHARACTER = '_';
+	public static final int MAX_NUM_OF_ATTEMPTS = 8;
 
 	private Dude dude;
 	private GameWord currentWord;
 	private String wordState;
 	private int numOfAttempts;
-	/* A variable to keep track of clicked and attempted chars */
+	/* A variable to keep track of clicked or attempted chars */
 	private boolean[] clickedChars;
-
-	public HangdudeBoard() {
-	}
 
 	public HangdudeBoard(Dude dude, GameWord currentWord) {
 		if (dude == null || currentWord == null || currentWord.getWord() == null) {
@@ -82,11 +80,29 @@ public class HangdudeBoard implements Serializable {
 		this.clickedChars = clickedChars;
 	}
 
-	private String fillEmptyCharacters() {
-		char[] chars = new char[currentWord.getWord().length()];
-		Arrays.fill(chars, EMPTY_CHARACTER);
+	public boolean isCompleted() {
+		if (currentWord == null || currentWord.getWord() == null) return false;
+		return currentWord.getWord().equals(wordState) && !isFailed();
+	}
 
-		return new String(chars);
+	public boolean isFailed() {
+		return MAX_NUM_OF_ATTEMPTS == numOfAttempts;
+	}
+
+	/* A method to create a new string by replacing letters with an empty character symbol */
+	private String fillEmptyCharacters() {
+		StringBuilder sb = new StringBuilder(currentWord.getWord().length());
+		char[] chars = currentWord.getWord().toCharArray();
+
+		for (Character c : chars) {
+			// Only replace letters
+			if (Character.isLetter(c)) {
+				sb.append(EMPTY_CHARACTER);
+			} else {
+				sb.append(c);
+			}
+		}
+		return sb.toString();
 	}
 
 	@Override

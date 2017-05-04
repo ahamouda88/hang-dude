@@ -1,6 +1,7 @@
 (function() {
 	var application = angular.module('application'),
 		imageRootPath = 'resources/images/',
+		maxAttempts = 8,
 		images =[
 		         imageRootPath + 'image_1.jpeg',
 		         imageRootPath + 'image_2.jpeg',
@@ -48,11 +49,13 @@
 		
 		// Add Character function
 		$scope.addCharacter = function(element){
+			// Only add characters if word is not completed
+			if($scope.currentboard.completed || $scope.currentboard.failed) return;
+			
 			var character = element.currentTarget.value,
 				response = GameBoardService.addCharacter(character);
 			
 			response.success(function(data) {
-				// TODO: Will add logic to check if success or number of attempts are over!
 				$scope.setCurrentBoard(data);
 			});
 		};
@@ -75,7 +78,13 @@
 			if(!board) return;
 			
 			$rootScope.currentboard = board;
-			$rootScope.currentboard.image = images[board.numOfAttempts];
+			/*
+			 * If number of attempts is reached, then display the last hangdude image, or
+			 * if word is completed then display the last image of the array, otherwise
+			 * display the image based on the num of attempts
+			 */
+			$rootScope.currentboard.image = board.failed ? images[images.length - 2] : 
+											board.completed ? images[images.length - 1] : images[board.numOfAttempts];
 		};
 	}
 

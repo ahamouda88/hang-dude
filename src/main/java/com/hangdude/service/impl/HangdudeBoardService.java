@@ -55,6 +55,10 @@ public class HangdudeBoardService extends AbsMainService<HangdudeBoard, String>
 		// If new word is null means the character doesn't exist in the word
 		if (newWord == null) {
 			board.setNumOfAttempts(board.getNumOfAttempts() + 1);
+			// If maximum number of attempts is reached then show the whole word
+			if (board.isFailed()) {
+				board.setWordState(board.getCurrentWord().getWord());
+			}
 			elements.put(key, board);
 			return board;
 		}
@@ -76,25 +80,34 @@ public class HangdudeBoardService extends AbsMainService<HangdudeBoard, String>
 	 */
 	@Override
 	public HangdudeBoard addUpdateBoard(String key, BoardRequest request) {
-		// Create board objects
-		String username = isEmpty(request.getUsername()) ? "Anonymous" : request.getUsername();
-		Dude dude = Dude.builder().id(key).username(username).build();
-		GameWord gameWord = wordService.getWord(request.getCategory(), request.getDifficulty());
-
-		HangdudeBoard newBoard = new HangdudeBoard(dude, gameWord);
 
 		/*
 		 * Check if board associated with the given key already exists, and if board exists then update the current
 		 * board associated with the given key
 		 */
-		boolean check;
-		if (this.getElement(key) != null) {
-			check = this.updateElement(key, newBoard);
+		boolean check = true;
+		GameWord gameWord;
+		HangdudeBoard board = this.getElement(key);
+		if (board != null && board.getDude() != null) {
+			gameWord = wordService.getWord(request.getCategory(), request.getDifficulty(),
+					board.getDude().getCompletedWords());
+
+			// If word exists update the current, otherwise keep the most recent board
+			if (gameWord != null) {
+				board = new HangdudeBoard(board.getDude(), gameWord);
+				check = this.updateElement(key, board);
+			}
 		} else {
-			check = this.addElement(key, newBoard);
+			// Create board objects
+			String username = isEmpty(request.getUsername()) ? "Anonymous" : request.getUsername();
+			Dude dude = Dude.builder().id(key).username(username).build();
+			gameWord = wordService.getWord(request.getCategory(), request.getDifficulty());
+
+			board = new HangdudeBoard(dude, gameWord);
+			check = this.addElement(key, board);
 		}
 
-		return check ? newBoard : null;
+		return check ? board : null;
 	}
 
 }

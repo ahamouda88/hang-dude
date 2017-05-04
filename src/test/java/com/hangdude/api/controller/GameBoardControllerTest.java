@@ -13,6 +13,7 @@ import java.util.Arrays;
 
 import org.hamcrest.Matchers;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -43,6 +44,7 @@ import com.hangdude.model.constants.PathConstants;
 @RunWith(SpringRunner.class)
 @SpringBootTest(classes = { SpringBootConfig.class })
 @WebAppConfiguration
+@Ignore
 public class GameBoardControllerTest {
 
 	@Autowired

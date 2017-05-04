@@ -48,7 +48,6 @@ public class GameBoardController {
 	@RequestMapping(method = RequestMethod.POST)
 	public ResponseEntity<HangdudeBoard> addGameBoard(HttpSession session, @RequestBody BoardRequest request)
 			throws Exception {
-
 		/* Note: in this implementation, I'm using the session id as the key */
 		HangdudeBoard board = boardService.addUpdateBoard(session.getId(), request);
 

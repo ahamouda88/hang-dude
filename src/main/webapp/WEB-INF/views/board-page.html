@@ -4,8 +4,8 @@
 			<img class="img-rounded" width="304" height="236" data-ng-src="{{currentboard.image}}" style="border:2px darkred solid"/>
 		</div>
 		<div class="form-group text-center">
-			<span data-ng-repeat="letter in currentboard.wordState.split('') track by $index">
-      			<span class="text-info" style="font-size:50px">{{ letter }}</span>
+			<span data-ng-repeat="letter in currentboard.wordState.split(' ').join('&nbsp;').split('') track by $index">
+      			<span class="text-info" style="font-size:50px" data-ng-trim="false" data-ng-bind="letter"></span>
     		</span>
    		</div>
     	<div class="form-group text-center">
@@ -40,5 +40,6 @@
 				<button class="btn btn-success" value="Z" data-ng-click="addCharacter($event)" data-ng-disabled="currentboard.clickedChars[25]">Z</button>
 			</div>
 		</div>
+		<div data-ng-if="currentboard.failed" class="alert alert-danger" role="alert"><strong>Game Over Dude!! Try Again.</strong></div>
 	</form>
 </div>
