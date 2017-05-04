@@ -10,8 +10,8 @@ This web application is a simple version of the hangman game.
 - You will need Maven tool, to build the application
 - Build the application using Maven using the following command: mvn clean install
 - Two ways for running the application:
--- A war file will be create at './target' folder, copy the file and deploy it to a web server
--- Simply you can either run the application by executing '/src/main/java/com/hangdude/config/spring/SpringBootConfig.java' or use the following command: mvn spring-boot:run
+	1. A war file will be create at './target' folder, copy the file and deploy it to a web server
+	2. Simply you can either run the application by executing '/src/main/java/com/hangdude/config/spring/SpringBootConfig.java' or use the following command: mvn spring-boot:run
 - Then you can access the game locally from the following url: http://localhost:8080/#/
 
 ## Pages End Points 
