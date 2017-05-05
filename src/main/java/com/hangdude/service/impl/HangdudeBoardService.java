@@ -36,17 +36,12 @@ public class HangdudeBoardService extends AbsMainService<HangdudeBoard, String>
 	 */
 	@Override
 	public HangdudeBoard addCharacter(Character character, String key) {
-		if (key == null || character == null) {
-			LOGGER.error(ErrorMessageConstants.ADD_CHARACTER_ERROR);
-			return null;
-		}
-
-		if (!elements.containsKey(key)) {
+		HangdudeBoard board = this.getElement(key);
+		// Board with the given key doesn't exist
+		if (board == null) {
 			LOGGER.error(ErrorMessageConstants.ADD_CHARACTER_KEY_NON_EXISTENT);
 			return null;
 		}
-
-		HangdudeBoard board = elements.get(key);
 		String newWord = wordService.addCharacter(character, board.getWordState(), board.getCurrentWord());
 
 		// Set attempted character as true
