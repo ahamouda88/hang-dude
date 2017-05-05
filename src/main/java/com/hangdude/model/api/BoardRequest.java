@@ -1,4 +1,4 @@
-package com.hangdude.api.request;
+package com.hangdude.model.api;
 
 import java.io.Serializable;
 

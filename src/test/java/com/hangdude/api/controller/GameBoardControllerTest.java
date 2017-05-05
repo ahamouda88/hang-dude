@@ -22,11 +22,11 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.hangdude.api.request.BoardRequest;
 import com.hangdude.config.spring.SpringBootConfig;
 import com.hangdude.model.Category;
 import com.hangdude.model.Difficulty;
 import com.hangdude.model.HangdudeBoard;
+import com.hangdude.model.api.BoardRequest;
 import com.hangdude.model.constants.PathConstants;
 import com.hangdude.service.BoardService;
 import com.hangdude.service.impl.HangdudeBoardService;

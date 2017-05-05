@@ -13,6 +13,7 @@ import org.springframework.stereotype.Service;
 import com.hangdude.model.Category;
 import com.hangdude.model.Difficulty;
 import com.hangdude.model.GameWord;
+import com.hangdude.model.constants.ErrorMessageConstants;
 import com.hangdude.service.WordService;
 import com.hangdude.utils.factory.WordFactory;
 
@@ -49,9 +50,7 @@ public class GameWordService implements WordService<GameWord> {
 	@Override
 	public String addCharacter(Character character, String currentWordState, GameWord gameWord) {
 		if (character == null || isEmpty(currentWordState) || gameWord == null || gameWord.getWord() == null) {
-			LOGGER.error(
-					"Failed to add character, due to invalid parameter. Character: {}, Word state: {}, and GameWord: {}.",
-					character, currentWordState, gameWord);
+			LOGGER.error(ErrorMessageConstants.ADD_CHARACTER_ERROR);
 			return null;
 		}
 		Map<Character, List<Integer>> charMap = gameWord.getCharPositions();

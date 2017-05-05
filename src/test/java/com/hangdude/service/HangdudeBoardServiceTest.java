@@ -45,7 +45,7 @@ public class HangdudeBoardServiceTest {
 
 	@Test
 	public void testInvalidAdd() {
-		boolean check = boardService.addElement("6", null);
+		boolean check = boardService.addUpdateElement("6", null);
 		assertFalse(check);
 	}
 
@@ -104,12 +104,12 @@ public class HangdudeBoardServiceTest {
 		HangdudeBoard board = boardService.getElement(id);
 		board.setNumOfAttempts(2);
 
-		assertTrue(boardService.updateElement(id, board));
+		assertTrue(boardService.addUpdateElement(id, board));
 	}
 
 	@Test
 	public void testInvalidUpdate() {
-		assertFalse(boardService.updateElement(null, null));
+		assertFalse(boardService.addUpdateElement(null, null));
 	}
 
 	@Test
@@ -154,7 +154,7 @@ public class HangdudeBoardServiceTest {
 		GameWord gameWord = WordFactory.getWord(category, difficulty);
 		HangdudeBoard board = new HangdudeBoard(dude, gameWord);
 
-		boolean check = boardService.addElement(id, board);
+		boolean check = boardService.addUpdateElement(id, board);
 		char[] chars = new char[gameWord.getWord().length()];
 		Arrays.fill(chars, HangdudeBoard.EMPTY_CHARACTER);
 

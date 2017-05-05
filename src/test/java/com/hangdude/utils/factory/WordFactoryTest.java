@@ -48,12 +48,6 @@ public class WordFactoryTest {
 	}
 
 	@Test
-	public void testNonexistingCategory() {
-		GameWord gameword1 = WordFactory.getWord(Category.CITY, Difficulty.EASY);
-		assertNull(gameword1);
-	}
-
-	@Test
 	public void testCharPositions() {
 		GameWord gameword = WordFactory.getWord(Category.SPORT, Difficulty.EASY);
 		Map<Character, List<Integer>> expectedCharPositions = new HashMap<>();

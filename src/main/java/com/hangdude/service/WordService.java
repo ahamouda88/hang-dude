@@ -48,7 +48,8 @@ public interface WordService<T> {
 	 *            a string that represents the current state of the word
 	 * @param word
 	 *            an instance of the word
-	 * @return a string with the added character if valid, otherwise will return <b>null</b>
+	 * @return a string with the added character if valid, otherwise will return <b>null</b> if the character is not in
+	 *         the word
 	 */
 	public String addCharacter(Character character, String currentWordState, T word);
 }

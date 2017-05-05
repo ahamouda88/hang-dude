@@ -8,6 +8,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.google.common.collect.ImmutableList;
+import com.hangdude.model.constants.ErrorMessageConstants;
 import com.hangdude.service.MainService;
 
 /**
@@ -41,7 +42,7 @@ public abstract class AbsMainService<T, E> implements MainService<T, E> {
 	@Override
 	public T getElement(E key) {
 		if (key == null) {
-			LOGGER.error("Failed to return an element, due to invalid parameter. Key: {}.", key);
+			LOGGER.error(ErrorMessageConstants.FAIL_GET);
 			return null;
 		}
 		return elements.get(key);
@@ -52,15 +53,32 @@ public abstract class AbsMainService<T, E> implements MainService<T, E> {
 	 */
 	@Override
 	public boolean addElement(E key, T element) {
-		return updateOrAddElement(key, element, false);
+		if (key == null || element == null) {
+			LOGGER.error(ErrorMessageConstants.FAIL_ADD, key, element);
+			return false;
+		}
+
+		if (elements.containsKey(key)) {
+			LOGGER.error(ErrorMessageConstants.KEY_EXISTS, key);
+			return false;
+		}
+
+		elements.put(key, element);
+		return true;
 	}
 
 	/**
-	 * @see MainService#updateElement(Object, Object)
+	 * @see MainService#addUpdateElement(Object, Object)
 	 */
 	@Override
-	public boolean updateElement(E key, T element) {
-		return updateOrAddElement(key, element, true);
+	public boolean addUpdateElement(E key, T element) {
+		if (key == null || element == null) {
+			LOGGER.error(ErrorMessageConstants.FAIL_ADD_UPDATE);
+			return false;
+		}
+
+		elements.put(key, element);
+		return true;
 	}
 
 	/**
@@ -69,12 +87,12 @@ public abstract class AbsMainService<T, E> implements MainService<T, E> {
 	@Override
 	public T removeElement(E key) {
 		if (key == null) {
-			LOGGER.error("Failed to remove an element, due to invalid parameter. key: {}.", key);
+			LOGGER.error(ErrorMessageConstants.FAIL_REMOVE);
 			return null;
 		}
 
 		if (!elements.containsKey(key)) {
-			LOGGER.error("Failed to remove an element. Element with the given key '{}', doesn't exist.", key);
+			LOGGER.error(ErrorMessageConstants.KEY_NON_EXISTENT);
 			return null;
 		}
 
@@ -87,29 +105,6 @@ public abstract class AbsMainService<T, E> implements MainService<T, E> {
 	@Override
 	public void removeAll() {
 		elements.clear();
-	}
-
-	private boolean updateOrAddElement(E key, T element, boolean isUpdate) {
-		if (key == null || element == null) {
-			LOGGER.error("Failed to add an element, due to invalid parameters. Key: {}, and Element: {}.", key,
-					element);
-			return false;
-		}
-
-		if (isUpdate) {
-			if (!elements.containsKey(key)) {
-				LOGGER.error("Failed to update an element. Board with the given key '{}' doesn't exist.", key);
-				return false;
-			}
-		} else {
-			if (elements.containsKey(key)) {
-				LOGGER.error("Failed to add an element. Element with the given key '{}' already exists.", key);
-				return false;
-			}
-		}
-		elements.put(key, element);
-
-		return true;
 	}
 
 }

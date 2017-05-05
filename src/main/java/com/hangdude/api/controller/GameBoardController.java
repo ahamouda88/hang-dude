@@ -14,9 +14,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.hangdude.api.request.BoardRequest;
 import com.hangdude.model.Category;
 import com.hangdude.model.HangdudeBoard;
+import com.hangdude.model.api.BoardRequest;
 import com.hangdude.model.constants.PathConstants;
 import com.hangdude.service.BoardService;
 

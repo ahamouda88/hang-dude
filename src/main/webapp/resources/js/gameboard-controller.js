@@ -1,7 +1,6 @@
 (function() {
 	var application = angular.module('application'),
 		imageRootPath = 'resources/images/',
-		maxAttempts = 8,
 		images =[
 		         imageRootPath + 'image_1.jpeg',
 		         imageRootPath + 'image_2.jpeg',
@@ -40,9 +39,9 @@
 				$location.path('/board-page');
 			});
 			response.error(function(data) {
-				$scope.currentboard.error = {
-					errorCode : -1,
-					message : 'Failed to fetch word. Please try again!'
+				$scope.error = {
+					errorCode : data.errorCode,
+					message : data.message
 				};
 			});
 		};

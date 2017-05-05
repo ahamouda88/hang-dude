@@ -42,15 +42,15 @@ public interface MainService<T, E> {
 	public boolean addElement(E key, T element);
 
 	/**
-	 * A method that updates an element
+	 * A method that adds a new element if not exists, or update existing element
 	 * 
 	 * @param key
 	 *            a key associated with the game board
 	 * @param element
 	 *            the element need to be updated
-	 * @return true if element is updated successfully, false otherwise
+	 * @return true if element is added/updated successfully, false otherwise
 	 */
-	public boolean updateElement(E key, T element);
+	public boolean addUpdateElement(E key, T element);
 
 	/**
 	 * A method that removes an element using the given key associated with it

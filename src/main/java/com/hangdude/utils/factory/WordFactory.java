@@ -12,6 +12,7 @@ import com.google.common.collect.ImmutableSet;
 import com.hangdude.model.Category;
 import com.hangdude.model.Difficulty;
 import com.hangdude.model.GameWord;
+import com.hangdude.model.constants.ErrorMessageConstants;
 
 /**
  * A class that creates {@link GameWord} objects
@@ -68,12 +69,23 @@ public final class WordFactory {
 		animalMap.put(Difficulty.EASY,  ImmutableSet.of(animal1));
 		animalMap.put(Difficulty.MEDIUM,  ImmutableSet.of(animal2));
 		animalMap.put(Difficulty.HARD,  ImmutableSet.of(animal3));
+		
+		
+		// Category: City
+		GameWord city1 = GameWord.builder().category(Category.CITY).difficulty(Difficulty.EASY).word("LONDON").build();
+		GameWord city2 = GameWord.builder().category(Category.CITY).difficulty(Difficulty.MEDIUM).word("ALEXANDRIA").build();
+		GameWord city3 = GameWord.builder().category(Category.CITY).difficulty(Difficulty.HARD).word("PARIS").build();
+		Map<Difficulty, Set<GameWord>> cityMap = new HashMap<>();
+		cityMap.put(Difficulty.EASY,  ImmutableSet.of(city1));
+		cityMap.put(Difficulty.MEDIUM,  ImmutableSet.of(city2));
+		cityMap.put(Difficulty.HARD,  ImmutableSet.of(city3));
 		//@formatter:on
 
 		WORDS.put(Category.SPORT, sportMap);
 		WORDS.put(Category.COUNTRY, countryMap);
 		WORDS.put(Category.FOOD, foodMap);
 		WORDS.put(Category.ANIMAL, animalMap);
+		WORDS.put(Category.CITY, cityMap);
 
 	}
 
@@ -108,22 +120,21 @@ public final class WordFactory {
 	 */
 	public static GameWord getWord(Category category, Difficulty difficulty, Set<GameWord> excludedWords) {
 		if (category == null || difficulty == null) {
-			LOGGER.error("Failed to find word due to invalid parameters. Category: {} and Difficulty: {}.", category,
-					difficulty);
+			LOGGER.error(ErrorMessageConstants.NO_WORD_ERROR);
 			return null;
 		}
 
 		// Get words based on category first
 		Map<Difficulty, Set<GameWord>> categoryWords = WORDS.get(category);
 		if (categoryWords == null) {
-			LOGGER.error("No words for the following category: " + category.name());
+			LOGGER.error(ErrorMessageConstants.NO_WORD_CAT_ERROR);
 			return null;
 		}
 
 		// Get words based on difficulty
 		Set<GameWord> difficultyWords = categoryWords.get(difficulty);
 		if (difficultyWords == null) {
-			LOGGER.error("No words for the following difficulty: " + difficulty.name());
+			LOGGER.error(ErrorMessageConstants.NO_WORD_DIF_ERROR);
 			return null;
 		}
 
@@ -151,9 +162,8 @@ public final class WordFactory {
 	 */
 	public static GameWord createWord(String word, Category category, Difficulty difficulty) {
 		if (word == null || category == null || difficulty == null) {
-			LOGGER.error("Failed to create word due to invalid parameters. Word: {}, Category: {} and Difficulty: {}.",
-					word, category, difficulty);
-			return null;
+			LOGGER.error(ErrorMessageConstants.CREATE_WORD_ERROR);
+			throw null;
 		}
 
 		return GameWord.builder().category(category).difficulty(difficulty).word(word).build();

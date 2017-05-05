@@ -1,6 +1,6 @@
 package com.hangdude.service;
 
-import com.hangdude.api.request.BoardRequest;
+import com.hangdude.model.api.BoardRequest;
 
 /**
  * An interface that manages the operations on the game boards, and that extends {@link MainService}
@@ -27,7 +27,7 @@ public interface BoardService<T, E> extends MainService<T, E> {
 	public T addCharacter(Character character, E key);
 
 	/**
-	 * A method that adds a new board if not exists, or update existing board
+	 * A method that adds a new board if not exists, or update existing element
 	 * 
 	 * @param key
 	 *            the key of the game board

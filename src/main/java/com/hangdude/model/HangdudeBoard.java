@@ -3,9 +3,6 @@ package com.hangdude.model;
 import java.io.Serializable;
 import java.util.Arrays;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 /**
  * A POJO class that represents a game board which consists mainly of a {@link Dude}, {@link GameWord}, and manage the
  * state of the current word
@@ -15,8 +12,6 @@ import org.slf4j.LoggerFactory;
 public class HangdudeBoard implements Serializable {
 
 	private static final long serialVersionUID = 1L;
-
-	private static final Logger LOGGER = LoggerFactory.getLogger(HangdudeBoard.class);
 
 	public static final char EMPTY_CHARACTER = '_';
 	public static final int MAX_NUM_OF_ATTEMPTS = 8;
@@ -28,16 +23,14 @@ public class HangdudeBoard implements Serializable {
 	/* A variable to keep track of clicked or attempted chars */
 	private boolean[] clickedChars;
 
+	public HangdudeBoard() {
+	}
+
 	public HangdudeBoard(Dude dude, GameWord currentWord) {
-		if (dude == null || currentWord == null || currentWord.getWord() == null) {
-			LOGGER.error("Failed to create a Hangdude board, due to invalid parameters. Dude: {}, and GameWord: {}.",
-					dude, currentWord);
-		} else {
-			this.dude = dude;
-			this.currentWord = currentWord;
-			this.wordState = fillEmptyCharacters();
-			this.clickedChars = new boolean[26];
-		}
+		this.dude = dude;
+		this.currentWord = currentWord;
+		this.wordState = fillEmptyCharacters();
+		this.clickedChars = new boolean[26];
 	}
 
 	public Dude getDude() {

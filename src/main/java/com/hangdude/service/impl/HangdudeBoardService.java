@@ -7,10 +7,12 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.hangdude.api.request.BoardRequest;
+import com.hangdude.exception.WordNonExistentException;
 import com.hangdude.model.Dude;
 import com.hangdude.model.GameWord;
 import com.hangdude.model.HangdudeBoard;
+import com.hangdude.model.api.BoardRequest;
+import com.hangdude.model.constants.ErrorMessageConstants;
 import com.hangdude.service.BoardService;
 import com.hangdude.service.WordService;
 
@@ -35,13 +37,12 @@ public class HangdudeBoardService extends AbsMainService<HangdudeBoard, String>
 	@Override
 	public HangdudeBoard addCharacter(Character character, String key) {
 		if (key == null || character == null) {
-			LOGGER.error("Failed to add character, due to invalid parameters. Key: {}, and character: {}.", key,
-					character);
+			LOGGER.error(ErrorMessageConstants.ADD_CHARACTER_ERROR);
 			return null;
 		}
 
 		if (!elements.containsKey(key)) {
-			LOGGER.error("Failed to add character. Board with the given key '{}' doesn't exist.", key);
+			LOGGER.error(ErrorMessageConstants.ADD_CHARACTER_KEY_NON_EXISTENT);
 			return null;
 		}
 
@@ -82,37 +83,30 @@ public class HangdudeBoardService extends AbsMainService<HangdudeBoard, String>
 	public HangdudeBoard addUpdateBoard(String key, BoardRequest request) {
 		// Validate parameters first
 		if (key == null || request == null || request.getCategory() == null || request.getDifficulty() == null) {
-			LOGGER.error("Failed to add/update board, due to invalid parameters. Key: {}, and Board Request: {}.", key,
-					request);
+			LOGGER.error(ErrorMessageConstants.FAIL_ADD_UPDATE);
 			return null;
 		}
 		/*
 		 * Check if board associated with the given key already exists, and if board exists then update the current
 		 * board associated with the given key
 		 */
-		boolean check = true;
-		GameWord gameWord;
+		Dude dude;
 		HangdudeBoard board = this.getElement(key);
 		if (board != null && board.getDude() != null) {
-			gameWord = wordService.getWord(request.getCategory(), request.getDifficulty(),
-					board.getDude().getCompletedWords());
-
-			// If word exists update the current, otherwise keep the most recent board
-			if (gameWord != null) {
-				board = new HangdudeBoard(board.getDude(), gameWord);
-				check = this.updateElement(key, board);
-			}
+			dude = board.getDude();
 		} else {
-			// Create board objects
 			String username = isEmpty(request.getUsername()) ? "Anonymous" : request.getUsername();
-			Dude dude = Dude.builder().id(key).username(username).build();
-			gameWord = wordService.getWord(request.getCategory(), request.getDifficulty());
-
-			board = new HangdudeBoard(dude, gameWord);
-			check = this.addElement(key, board);
+			dude = Dude.builder().id(key).username(username).build();
 		}
 
-		return check ? board : null;
+		GameWord gameWord = wordService.getWord(request.getCategory(), request.getDifficulty(),
+				dude.getCompletedWords());
+
+		if (gameWord == null) {
+			throw new WordNonExistentException(ErrorMessageConstants.WORD_NON_EXISTENT);
+		}
+		board = new HangdudeBoard(dude, gameWord);
+		return this.addUpdateElement(key, board) ? board : null;
 	}
 
 }

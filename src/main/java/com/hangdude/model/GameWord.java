@@ -45,7 +45,7 @@ public class GameWord implements Serializable {
 	}
 
 	public Map<Character, List<Integer>> getCharPositions() {
-		return charPositions;
+		return ImmutableMap.copyOf(charPositions);
 	}
 
 	public static Builder builder() {
