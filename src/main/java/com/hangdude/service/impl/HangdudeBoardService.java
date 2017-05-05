@@ -43,10 +43,8 @@ public class HangdudeBoardService extends AbsMainService<HangdudeBoard, String>
 
 		HangdudeBoard board = this.getElement(key);
 		// Board with the given key doesn't exist
-		if (board == null) {
-			LOGGER.error(ErrorMessageConstants.ADD_CHARACTER_KEY_NON_EXISTENT);
-			return null;
-		}
+		if (board == null) return null;
+
 		String newWord = wordService.addCharacter(character, board.getWordState(), board.getCurrentWord());
 
 		// Set attempted character as true

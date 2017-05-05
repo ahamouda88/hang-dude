@@ -43,7 +43,7 @@ public abstract class AbsMainService<T, E> implements MainService<T, E> {
 	@Override
 	public T getElement(E key) {
 		if (key == null) {
-			LOGGER.error(ErrorMessageConstants.FAIL_GET);
+			LOGGER.error(ErrorMessageConstants.KEY_NON_EXISTENT);
 			return null;
 		}
 		return elements.get(key);

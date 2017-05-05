@@ -21,7 +21,6 @@ public interface ErrorMessageConstants {
 	public static final String FAIL_REMOVE = "Failed to remove an element, due to invalid key.";
 	public static final String FAIL_ADD = "Failed to add an element, due to invalid key.";
 	public static final String FAIL_ADD_UPDATE = "Failed to add/update an element, due to invalid parameter(s).";
-	public static final String FAIL_GET = "Failed to get an element, due to invalid.";
 	public static final String KEY_NON_EXISTENT = "Element with the given key doesn't exist.";
 	public static final String KEY_EXISTS = "Element with the given key does exist.";
 }
