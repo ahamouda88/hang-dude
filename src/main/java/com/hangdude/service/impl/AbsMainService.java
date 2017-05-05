@@ -33,6 +33,7 @@ public abstract class AbsMainService<T, E> implements MainService<T, E> {
 	 */
 	@Override
 	public List<T> getAll() {
+		// Prevent list from being updated!
 		return ImmutableList.copyOf(elements.values());
 	}
 

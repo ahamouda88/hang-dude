@@ -8,6 +8,7 @@ import java.util.Set;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.google.common.collect.ImmutableMap;
 import com.google.common.collect.ImmutableSet;
 import com.hangdude.model.Category;
 import com.hangdude.model.Difficulty;
@@ -167,6 +168,15 @@ public final class WordFactory {
 		}
 
 		return GameWord.builder().category(category).difficulty(difficulty).word(word).build();
+	}
+
+	/**
+	 * A method to return all words
+	 * 
+	 * @return map of all words divided by category and difficulty
+	 */
+	public static Map<Category, Map<Difficulty, Set<GameWord>>> getAllWords() {
+		return ImmutableMap.copyOf(WORDS);
 	}
 
 }
